@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+  		<style>
+    		.reveal .progress {
+       		height: 10px;  /* Adjust this value */
+			color: #b11605;
+			}
+
+    		.reveal .progress .progress-bar {
+        	height: 100%;  /* Adjust as necessary */
+			color: #b11605;
+    		}	
+  		</style>
+
+		<style>
+   			.slide-footer {
+      		position: fixed;
+      		bottom: 10px;
+      		left: 0;
+      		width: 99%;
+			height: 5%;
+      		text-align: center;
+      		padding: 12px;
+      		background-color: rgba(0, 0, 0, 0.4);
+      		color: white;
+      		font-size: 18px;
+      		z-index: 100;
+      		pointer-events: none;
+			clip-path: inset(25px 95px 0px 0px);
+    		}
+			
+  		</style>
+
+			
+			
+		<style>
+			/* Adjusts the space between bullet points */
+			ul li {
+				margin-bottom: 15px; /* Increase the space between items */
+			}
+		</style>
+		
+		<style>
+			.reveal .slide-number {
+    		font-size: 20px;  /* Increase the number as desired */
+    		color: #fff;  /* Ensure it's visible, change color if necessary */
+    		background-color: rgba(0, 0, 0, 0.6);  /* Optional: Add a background for visibility */
+    		padding: 5px 10px;
+    		border-radius: 5px;  /* Optional: Rounded corners */
+			}
+
+			.reveal .slide-number {
+    		bottom: 10px;
+    		right: 5px;
+    		position: fixed;  /* Fixes it in the corner */
+			}
+		</style>
+
+		<style>
+			/* Targeting the presenter notes in presenter view */
+			.reveal .notes {
+			  font-size: 10px !important; /* Change the size as per your needs */
+			}
+  		</style>
+
+		<style>
+			/* Custom styling for the left and right arrows */
+			.reveal .navigate-left, 
+			.reveal .navigate-right,
+			.reveal .navigate-up,
+			.reveal .navigate-down {
+			    width: 50px;  /* Set custom size */
+			    height: 50px;  /* Set custom size */
+			    background-color: rgba(0, 0, 0, 0.5);  /* Add background for better visibility */
+			    color: white;  /* Change arrow color */
+			    border-radius: 50%;  /* Make arrows circular */
+			    border: 2px solid white;  /* Add border for more definition */
+			}
+
+			/* Optional: Hover effect */
+			.reveal .navigate-left:hover, 
+			.reveal .navigate-right:hover,
+			.reveal .navigate-up:hover,
+			.reveal .navigate-down:hover {
+			    background-color: rgba(255, 255, 255, 0.8);  /* Lighter background on hover */
+			    color: black;  /* Invert color on hover */
+			}
+		</style>
+
+		<style>
+    		/* Rotate the paragraph 90 degrees clockwise */
+    		.rotate-text {
+    		  transform: rotate(270deg);
+    		  transform-origin: left top; /* Adjust as needed */
+    		  display: inline-block; /* Necessary for the rotation to work correctly */
+    		}
+  		</style>
+		
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class="no-footer" data-background-color="white">
+					<div style="border-radius: 15px 80px; background: #f9f1ee; text-align: center">
+						<p style="font-size: 59px;">Detecting unusual chemical signatures <br> using autoencoder-based anomaly detection</p>
+						
+					</div>
+					<div style="padding: 10px"></div>
+					<div style="border-radius: 15px; background: #efe0dd; text-align: center">
+						<p><b>Emilie Panek</b></p>
+						<p style="font-size: 22px;">09/09/2025</p>
+						<p style="font-size:50%;">working with <b>Alexander Roman, Katia Matcheva and Konstantin Matchev</b>
+						</p>
+					</div>
+					<div style="position:relative; top:-25px;left: 30px;">
+						<img style="position:relative; left:-30px;top: 30px;"  height="150px" src="images/Page8_Capstone-A_Logos-791x1024-1.png">
+					</div>
+					<aside class="notes">
+						Good afternoon everyone. Thank you all for being here today. I am excited to present the culmination of my PhD research on exoplanets. Over the past several years, I have been investigating the composition and phenomena that occur in hot jupiter's atmosphere, by analyzing the atmospheres of exoplanets, we can start to answer fundamental questions about the nature of planets beyond our solar system: What are they made of? Could they potentially harbor life? How do they form and evolve? To help answering these questions my work has focused on transmission spectroscopy specifically, and today I will walk you through the key findings, methodologies, and implications of my research. 
+					</aside>
+				</section>
+				
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 100px;left: 0px;">Overview of the talk</h2>
+					<p style="padding: 10px;position: relative;top: 100px;right: 150px;">Introduction</p>
+					<ul style="font-size: 30px;position: relative;top: 70px;">
+						<li>Machine learning in exoplanet science</li>
+						<li>Transmission spectroscopy</li>
+					</ul>
+					<p style="padding: 10px;position: relative;top: 20px;right: 190px;">Method</p>
+					<ul style="font-size: 30px;position: relative;top: -10px;right: 10px;">
+						<li>Overview of the database</li>
+						<li>Autoencoder and anomaly detection</li>
+					</ul>
+					<p style="padding: 10px;position: relative;top: -60px;right: 190px;">Results</p>
+					<ul style="font-size: 30px;position: relative;top: -90px;right: 50px;">
+						<li>What is the best performance</li>
+						<li>Effect of noise</li>
+					</ul>
+					<p style="padding: 10px;position: relative;top: -130px;right: 160px;">Conclusion</p>
+					<ul style="font-size: 30px;position: relative;top: -170px;right: 80px;">
+						<li>What are the next steps? </li>
+					</ul>
+				</section>
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 150px;left: 0px;">Exoplanet atmospheres</h2>
+					<ul style="font-size: 40px;position: relative;top: 200px;right: 350px;">
+						<li>Finding out the diversity of <br> possible planets within the Universe</li>
+						<li>Understand how planets <br> form and evolve</li>
+						<li>Search for life?</li>
+
+					</ul>
+					<div style="position:relative; top:0px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -150px;left: 250px;"  height="500px" src="images/Picture1.jpg">
+					</div>
+					
+				</section>
+
+
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 200px;left: -00px;">The challenge of big data in exoplanet science</h2>
+
+					<div style="position:relative; top:0px;left: 30px;">
+						<img style="position:relative; left:-30px;top: 205px;left: -400px;"  height="450px" src="images/confirmed1.png">
+					</div>
+					<div style="font-size: 30px;position: relative;top: -200px;right: -50px;">
+						<img style="position:relative; left:-30px;top: -100px;left: 340px;"  height="450px" src="images/confimed2.png">
+					</div>
+			
+					
+				</section>
+
+				<section data-background-color="white">
+					<p style="font-size: 45px; text-align: center;position: relative;top: 0px;left: 0px;">Roman et al. submitted</p>
+					<div style="position:relative; top:0px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -50px;left: 0px;"  height="500px" src="images/Picture2.png">
+					</div>
+				</section>
+
+				<section data-background-color="black" data-background-video="images/Shorter_transit_video.mp4" data-background-video-muted data-transition="none" data-background-size="contain">
+					<p style="position: relative;top: -50px;color: #ffffff;">Detection by transit </p>	
+					<p style="font-size: x-small;position: relative;top: 500px;left: -500px;">Credits: https://science.nasa.gov/</p> 
+				</section>
+				
+				<section
+				data-background-color="black"
+				data-background="images/Picture3.jpg">
+
+				</section>
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 300px;left: -300px;">Database</h2>
+					<ul style="font-size: 30px;position: relative;top: 350px;right: 350px;">
+						<li>Use of TauREx plus different levels of <br> Gaussian noise</li>
+						<li>final database of 69,099 spectra</li>
+					</ul>
+					<div style="position:relative; top:0px;left: 30px;">
+						<img style="position:relative; left:-30px;top: 350px;left: -400px;"  height="300px" src="images/Picture5.png">
+					</div>
+					<div style="position:relative; top:-250px;left: 100px;">
+						<img style="position:relative; left:-30px;top: -50px;left: 250px;"  height="600px" src="images/Picture6.png">
+					</div>
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 100px;left: -0px;">Normal vs Anomalous spectra</h2>
+					
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -100px;left: -50px;"  height="450px" src="images/Picture7.png">
+					</div>
+					
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 100px;left: -0px;">Normal vs Anomalous spectra</h2>
+					
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -100px;left: -50px;"  height="450px" src="images/Picture8.png">
+					</div>
+					
+				</section>
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 50px;left: -0px;">Autoencoder architecture</h2>
+					
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -150px;left: 300px;"  height="350px" src="images/Picture9.png">
+					</div>	
+					<ul style="font-size: 40px;position: relative;top: -220px;right: 300px;">
+						<li>Encoder compresses the input</li>
+						<li>Decoder reconstructs the input</li>
+						<li>from 52 dimensions to 8 dimensions</li>
+					</ul>		
+				</section>
+
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 50px;left: -0px;">Reconstruction loss</h2>
+					
+					<div style="position:relative; top:200px;left: -330px;">
+						<img style="position:relative; left:-30px;top: -150px;left: 300px;"  height="350px" src="images/Picture10.png">
+					</div>	
+					<ul style="font-size: 30px;position: relative;top: 50px;right: 00px;" >
+						<li>If a spectrum is familiar, the autoencoder will reconstruct it well</li>
+						<li>If it’s unfamiliar or strange, the reconstruction will be poor</li>
+					</ul>		
+				</section>
+
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 50px;left: -0px;">Anomaly detection</h2>
+					
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -150px;left: 300px;"  height="350px" src="images/svm.png">
+					</div>	
+					<ul style="font-size: 40px;position: relative;top: -300px;right: 500px;">
+						<li>1-Class SVM</li>
+					</ul>		
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 50px;left: -0px;">Anomaly detection</h2>
+					
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -150px;left: 300px;"  height="350px" src="images/kmeans.png">
+					</div>	
+					<ul style="font-size: 40px;position: relative;top: -300px;right: 500px;">
+						<li>1-Class SVM</li>
+						<li>K-means</li>
+					</ul>		
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 100px;left: -0px;">Anomaly detection</h2>
+					
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -150px;left: 300px;"  height="450px" src="images/lof.png">
+					</div>	
+					<ul style="font-size: 40px;position: relative;top: -350px;right: 386px;">
+						<li>1-Class SVM</li>
+						<li>K-means</li>
+						<li>Local Outlier Factor (LOF)</li>
+					</ul>		
+				</section>
+				
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 100px;left: -0px;">Results - Histograms</h2>
+					
+					<div style="position:relative; top:200px;left: -330px;">
+						<img style="position:relative; left:-30px;top: -120px;left: 320px;"  height="600px" src="images/histo_spectrals.png">
+					</div>		
+					<p style="font-size: 23px;position: relative;top: 20px;right: 00px;" >Histograms in spectral space</p>
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 100px;left: -0px;">Results - Histograms</h2>
+					
+					<div style="position:relative; top:200px;left: -330px;">
+						<img style="position:relative; left:-30px;top: -120px;left: 320px;"  height="600px" src="images/histo_latent.png">
+					</div>		
+					<p style="font-size: 23px;position: relative;top: 20px;right: 00px;" >Histograms in latent space</p>
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 50px;left: -0px;">Results - ROC curves</h2>
+
+					<ul style="font-size: 30px;position: relative;top: 50px;right: 350px;">
+						<li>True positive rate vs false positive rate</li>
+						<li>Diagonal = no better than random guessing</li>
+					</ul>
+
+					<div style="position:relative; top:200px;left: -330px;">
+						<img style="position:relative; left:-30px;top: -150px;left: 300px;"  height="350px" src="images/roc1.png">
+					</div>
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 407px;left: -0px;">Results - ROC curves</h2>
+
+					<ul style="font-size: 30px;position: relative;top: 407px;right: 350px;">
+						<li>True positive rate vs false positive rate</li>
+						<li>Diagonal = no better than random guessing</li>
+					</ul>
+
+					<div style="position:relative; top:300px;left: -330px;">
+						<img style="position:relative; left:-30px;top: 150px;left: -300px;"  height="150px" src="images/roc1.png">
+					</div>
+
+					<div style="position:relative; top:150px;left: -430px;">
+						<img style="position:relative; left:-30px;top: 61px;left: 100px;"  height="400px" src="images/roc2.png">
+					</div>
+
+					<div style="position:relative; top:80px;left: -430px;">
+						<img style="position:relative; left:-30px;top: -325px;left: 500px;"  height="400px" src="images/roc3.png">
+					</div>
+
+					<div style="position:relative; top:200px;left: -330px;">
+						<img style="position:relative; left:-30px;top: -900px;left: 800px;"  height="400px" src="images/roc4.png">
+					</div>
+				</section>
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 250px;left: -0px;">Comparison of methods</h2>
+					
+					<div style="position:relative; top:200px;left: -300px;">
+						<img style="position:relative; left:-30px;top: 150px;left: -70px;"  height="250px" src="images/comp1.png">
+					</div>	
+					
+					<div style="position:relative; top:200px;left: -300px;">
+						<img style="position:relative;top: -250px;left: 600px;"  height="450px" src="images/comp2.png">
+					</div>	
+				</section>
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: -10px;left: -0px;">Conclusions</h2>
+					
+
+					<ul style="font-size: 45px;position: relative;top: 30px;right: 00px;" >
+						<li> Anomaly detection using autoencoders is most effective in the latent space</li>
+						<li>K-means clustering gives the best performance</li>
+						<li>The method is robust to noise, up to a realistic level expected for space-based observations around 30 ppm</li>
+					</ul>		
+				</section>
+
+				<section data-background-color="white" class="no-footer">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 20px;left: -0px;">Future directions?</h2>
+					<div style="position:relative; top:0px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -20px;left: 0px;"  height="600px" src="images/future.png">
+					</div>
+				</section>
+
+			</div>
+			<footer class="slide-footer">
+				<p> Emilie Panek &nbsp;&nbsp; | &nbsp;&nbsp; epanek1@ua.edu  &nbsp;&nbsp; | &nbsp;&nbsp; 09/09/2025</p>
+			  </footer>
+		</div>
+
+		
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+
+
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				slideNumber: true,
+				slideNumber: 'c/t',  // 'c' for current slide, 't' for total slides
+  				showSlideNumber: 'all',
+				// Fix dimensions
+				width: 1000,       // your screen width
+				height: 1500,      // your screen height
+				margin: 0.05,      // optional: 5% margin around content
+				minScale: 1.0,     // don't shrink below original size
+				maxScale: 1.0,     // don't grow beyond original size
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
+			});
+
+			// Footer hide/show logic
+  			Reveal.on('slidechanged', function(event) {
+    			var footer = document.querySelector('.footer');
+    
+    			if (event.currentSlide.classList.contains('no-footer')) {
+      			footer.style.display = 'none';
+				} else {
+      			footer.style.display = 'block';
+    			}
+  			});
+		</script>
+	</body>
+</html>
