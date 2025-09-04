@@ -1,0 +1,1322 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+  		<style>
+    		.reveal .progress {
+       		height: 10px;  /* Adjust this value */
+			}
+
+    		.reveal .progress .progress-bar {
+        	height: 100%;  /* Adjust as necessary */
+    		}	
+  		</style>
+
+		<style>
+   			.slide-footer {
+      		position: fixed;
+      		bottom: 10px;
+      		left: 0;
+      		width: 99%;
+			height: 5%;
+      		text-align: center;
+      		padding: 12px;
+      		background-color: rgba(0, 0, 0, 0.4);
+      		color: white;
+      		font-size: 18px;
+      		z-index: 100;
+      		pointer-events: none;
+			clip-path: inset(25px 95px 0px 0px);
+    		}
+			
+  		</style>
+
+			
+			
+		<style>
+			/* Adjusts the space between bullet points */
+			ul li {
+				margin-bottom: 15px; /* Increase the space between items */
+			}
+		</style>
+		
+		<style>
+			.reveal .slide-number {
+    		font-size: 20px;  /* Increase the number as desired */
+    		color: #fff;  /* Ensure it's visible, change color if necessary */
+    		background-color: rgba(0, 0, 0, 0.6);  /* Optional: Add a background for visibility */
+    		padding: 5px 10px;
+    		border-radius: 5px;  /* Optional: Rounded corners */
+			}
+
+			.reveal .slide-number {
+    		bottom: 10px;
+    		right: 5px;
+    		position: fixed;  /* Fixes it in the corner */
+			}
+		</style>
+
+		<style>
+			/* Targeting the presenter notes in presenter view */
+			.reveal .notes {
+			  font-size: 10px !important; /* Change the size as per your needs */
+			}
+  		</style>
+
+		<style>
+			/* Custom styling for the left and right arrows */
+			.reveal .navigate-left, 
+			.reveal .navigate-right,
+			.reveal .navigate-up,
+			.reveal .navigate-down {
+			    width: 50px;  /* Set custom size */
+			    height: 50px;  /* Set custom size */
+			    background-color: rgba(0, 0, 0, 0.5);  /* Add background for better visibility */
+			    color: white;  /* Change arrow color */
+			    border-radius: 50%;  /* Make arrows circular */
+			    border: 2px solid white;  /* Add border for more definition */
+			}
+
+			/* Optional: Hover effect */
+			.reveal .navigate-left:hover, 
+			.reveal .navigate-right:hover,
+			.reveal .navigate-up:hover,
+			.reveal .navigate-down:hover {
+			    background-color: rgba(255, 255, 255, 0.8);  /* Lighter background on hover */
+			    color: black;  /* Invert color on hover */
+			}
+		</style>
+
+		<style>
+    		/* Rotate the paragraph 90 degrees clockwise */
+    		.rotate-text {
+    		  transform: rotate(270deg);
+    		  transform-origin: left top; /* Adjust as needed */
+    		  display: inline-block; /* Necessary for the rotation to work correctly */
+    		}
+  		</style>
+		
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class="no-footer" data-background-color="white">
+					<div style="border-radius: 15px 80px; background: #eef9f9; text-align: center">
+						<p style="font-size: 66px;">Hot Jupiter’s transmission spectroscopy<br> at the eve of JWST observations</p>
+						
+					</div>
+					<div style="padding: 10px"></div>
+					<div style="border-radius: 15px; background: #ddefef; text-align: center">
+						<p><b>Emilie Panek</b></p>
+						<p style="font-size: 22px;">13/09/2024</p>
+						<p style="font-size:50%;">supervised by <b>Pierre Drossart (IAP), Olivia Venot (LISA) & Jean-Philippe Beaulieu (IAP)</b>
+						</p>
+					</div>
+					<div style="position:relative; top:-25px;">
+						<img style="position:relative; left:-30px;top: 30px;"  height="150px" src="images/intro/IAP.png">
+						<img style="position:relative; left:30px;"  height="90px" src="images/intro/lisa_logo_labo-removebg-preview.png">
+					</div>
+					<aside class="notes">
+						Good afternoon everyone. Thank you all for being here today. I am excited to present the culmination of my PhD research on exoplanets. Over the past several years, I have been investigating the composition and phenomena that occur in hot jupiter's atmosphere, by analyzing the atmospheres of exoplanets, we can start to answer fundamental questions about the nature of planets beyond our solar system: What are they made of? Could they potentially harbor life? How do they form and evolve? To help answering these questions my work has focused on transmission spectroscopy specifically, and today I will walk you through the key findings, methodologies, and implications of my research. 
+					</aside>
+				</section>
+				
+				<section data-background-color="white" style="font-family: Arial, sans-serif;text-align: left; font-size: 27px; line-height: 1.5; color: #333;">
+					<h2 style="text-align: left; font-size: 30px; margin-bottom: 5px;">Overview of the Talk</h2>
+				
+					<div style="margin-bottom: 5px;">
+						<strong>Part 1: Introduction</strong><br>
+						<span style="font-size: smaller; margin-left: 20px; display: block;">
+							What Are Exoplanets?<br>
+							Understanding Transmission Spectroscopy<br>
+							Space Telescopes in Exoplanetary Research
+						</span>
+					</div>
+				
+					<div style="margin-bottom: 5px;">
+						<strong>Part 2: Methodology</strong><br>
+						<span style="font-size: smaller; margin-left: 20px; display: block;">
+							Data Reduction<br>
+							Forward Modeling<br>
+							Retrievals
+						</span>
+					</div>
+				
+					<div>
+						<strong>Part 3: Application to data</strong><br>
+						<span style="font-size: smaller; margin-left: 20px; display: block;">
+							Equilibrium Chemistry<br>
+							Disequilibrium Chemistry<br>
+							What About JWST Data?<br>
+						</span>
+					</div>
+
+					<div>
+						<strong>Part 4: What are the limitations?</strong><br>
+						<span style="font-size: smaller; margin-left: 20px; display: block;">
+							3D effects<br>
+							Machine Learning for exoplanets<br>
+							Dataset generation
+						</span>
+					</div>
+					<aside class="notes">
+						So I'm first gonna do a general introduction for some context, then I'll detail the methodology from the reduction of raw data to the retrival analysis. 
+						In a third time I will talk in more detail about the reults of this work, both in equilibrium and disequiblibirum chemistry and finally I will talk a bit about machine learning and how it can be applied to this specific problem. 
+					</aside>
+				</section>
+
+			<!-- PARTIE 1 -->
+			<section>
+				<section data-background-image="./images/intro/soleil.jpg" data-background-size="cover">
+					<h2 style="color:#E74C3C;">  Part 1: Introduction </h2>
+				<aside class="notes">
+					So I will introduce the general contexte in french first and then i'll do the rest of my presentation in english. 
+ 					Bonjour a tous, merci d'etre présent aujourd'hui, je vais commencer cette soutenance par une introduction du contexte général de ma recherche, je vais parler en français pendant quelques minutes avant de revenir à l'anglais pour le reste de la présentation. Mon travail de recherche se situe dans le cadre de l'étude des atmosphères d'exoplanetes. 
+				</aside>
+				</section>
+
+				<section data-background-image="./images/intro/soleil.jpg" data-background-size="cover" data-auto-animate="">
+					<p style="color: #ffffff;"> What are exoplanets?</p>
+					<aside class="notes">
+						Une exoplanète est une planète qui orbite autour d'une étoile autre que notre Soleil, c'est-à-dire en dehors du système solaire.
+					</aside>
+				</section>
+
+				<section data-background-image="./images/intro/soleil.jpg" data-background-size="cover" data-auto-animate>
+					<p style="color: #ffffff;"> What are exoplanets?</p>
+        			<img style="position:relative; left:-0px;" src="./images/intro/jupiter.jpg" width="200" height="200">
+					<aside class="notes">
+						J'ai étudié spécifiquement un type d'exoplanète géante gazeuse, similaire en taille et en composition à Jupiter, mais qui orbite extrêmement près de son étoile.
+					</aside>
+				</section>
+
+				<section data-background-image="./images/intro/soleil.jpg" data-background-size="cover" data-auto-animate >
+					<p style="color: #ffffff;"> What are exoplanets?</p>
+					<img style="position:relative; left:-200px;" src="./images/intro/jupiter.jpg" width="200" height="200">
+					<aside class="notes">
+						Du fait de sa proximité a l'étoile, la planète va recevoir plus d'irradiation que Jupiter et donc s'étendre, 
+					</aside>
+				</section>
+
+				<section data-background-image="./images/intro/soleil.jpg" data-background-size="cover" data-auto-animate="">
+					<p style="color: #ffffff;"> What are exoplanets?</p>
+					<img style="position:relative; left:-200px; top: 100px;" src="./images/intro/jupiter.jpg" width="300" height="300">
+					<p class="fragment" style="position:relative; left:-200px; top: -380px; color: #ffffff;">Hot Jupiter </p>
+					<p class="fragment" style="font-size: smaller;position:relative; left:-400px; top: -270px; color: #ffffff;">day side </p>
+					<p class="fragment" style="font-size: smaller;position:relative; left:0px; top: -100px; color: #ffffff;">night side </p>
+					<aside class="notes">
+						c'est ce qu'on appelle un jupiter chaud.
+						Les Jupiters chauds sont souvent en rotation et révolution synchronisées par effet de marée, ce qui signifie qu'ils présentent toujours la même face à leur étoile, un peu comme la Lune avec la Terre. En conséquence, un côté de la planète est constamment exposé à la chaleur de l’étoile (jour perpétuel), tandis que l’autre reste dans l’obscurité (nuit perpétuelle).
+					</aside>
+				</section>
+		
+				<section data-background-image="./images/intro/soleil.jpg" data-background-size="cover" data-auto-animate="" data-transition="none">
+				</section>
+
+				<section data-background-color="black" data-background-image="./images/intro/transit2.png" data-background-size="contain" data-transition="none">
+					<p style="position: relative;top: -300px;color: #ffffff;">Detection by transit </p>
+					<p style="font-size: x-small;position: relative;top: 500px;left: -500px;">Credits: https://science.nasa.gov/</p>
+					<aside class="notes">
+						Les exoplanetes peuvent etre découvertes grâce à des méthodes d'observation indirectes, car elles sont généralement trop éloignées et trop peu lumineuses pour être observées directement.
+					</aside>
+				</section>
+
+				<section data-background-color="black" data-background-video="images/intro/Shorter_transit_video.mp4" data-background-video-muted data-transition="none" data-background-size="contain">
+					<p style="position: relative;top: -300px;color: #ffffff;">Detection by transit </p>	
+					<p style="font-size: x-small;position: relative;top: 500px;left: -500px;">Credits: https://science.nasa.gov/</p> 
+					<aside class="notes">
+						Par exemple lorsqu'une exoplanète passe directement entre son étoile et notre ligne de visée, on observe une diminution de la lumière de l’étoile, c'est ce qu'on appelle un transit.
+					</aside>
+				</section>
+
+				<section data-background-image="./images/intro/spectro1.png" data-background-size="cover">
+					<p style="position: relative;top: 0px;color: #ffffff;"> Transmission spectroscopy</p>
+					<div class="r-stack">
+						<img class="fragment" style="position: relative;bottom: -0px;clip-path: inset(100px 0px 0px 0px); " src="images/intro/spectro2.png" alt=""/>
+						<img class="fragment" style="position: relative;bottom: -0px;clip-path: inset(100px 0px 0px 0px); " src="images/intro/spectro3.png" alt=""/>
+						<img class="fragment" style="position: relative;bottom: -0px;clip-path: inset(100px 0px 0px 0px); " src="images/intro/spectro4.png" alt=""/>
+						<img class="fragment" style="position: relative;bottom: -0px;clip-path: inset(100px 0px 0px 0px); " src="images/intro/spectro5.png" alt=""/>
+						<img class="fragment" style="position: relative;bottom: -0px;clip-path: inset(100px 0px 0px 0px); " src="images/intro/spectro6.png" alt=""/>
+					</div>
+					<aside class="notes">
+						Pendant ce phénomène de transit on peut faire de la spectroscopie. Une partie de la lumière traverse l’atmosphère de la planète, permettant d'identifier les gaz présents dans cette atmosphère en observant les longueurs d'onde absorbées ou modifiées. Par exemple ici, on a l'etoile dans le coin en haut à gauche,
+						La spectroscopie de transmission représente la base du travail de thèse que je vais détailler dans les prochaines 40min en anglais.
+					</aside>
+				</section>
+
+				<section data-background-color="black" data-transition="none">
+					<video controls muted data-autoplay class="r-stretch" src="images/intro/videoplayback (online-video-cutter.com).mp4" 
+					 ></video>
+					 <p style="font-size: x-small;position: relative;top: 20px;left: -500px;">Credits: https://science.nasa.gov/</p>
+					 <aside class="notes">
+						I just presented the broad context now I'm showing you another representation of transmission Spectroscopy
+					 </aside>
+				</section>
+
+
+				<section data-background-image="./images/intro/introo.png" data-background-size="cover" data-transition="none">
+					<div class="fragment" style="position:relative; left:-450px; top: -20px;color: #ffffff;">
+						\[ \Delta F \approx \left(\frac{R_p}{R_*}\right)^2 \]
+					</div>
+					<div class="fragment" style="position:relative; left:-450px; top: -30px;color: #ffffff;">
+						\[ H(\lambda) = \frac{k_b T}{\mu(\lambda)g}\]
+					</div>
+					
+					<p style="font-size: x-small;position: relative;top: 220px;left: -500px;">Credits: https://science.nasa.gov/</p>
+					<aside style="font-size: 10px;" class="notes">
+						the radius ratio refers to the ratio of the radius of the exoplanet to the radius of the star. This ratio is key in determining how much of the star’s light is blocked during a transit, A larger radius ratio means the planet blocks more light, producing a deeper transit signal.
+						The scale height is a measure of how quickly the atmospheric pressure decreases with altitude and is defined as ...
+						The transit depth depends on the thickness of the atmosphere, and the scale height describes how much of the atmosphere is observable during a transit. A larger scale height means the planet's atmosphere extends further, increasing the apparent size of the planet in specific wavelengths, which increases the transit depth at those wavelengths. 
+					</aside>
+				
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p> Understanding molecular features </p>
+					<aside class="notes">
+						Now if we plot the radius ratio in function of wavelength, we will have a spectrum.
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p style="position: relative;top: 100px;"> Understanding molecular features </p>
+					<div class="r-stack">
+						<img style="height: 1000px;clip-path:inset(0px 0px 877px 0px);position: relative;left: -00px;top: 150px;" src="images/intro/molecules.png" alt="">
+					<p style="font-size: 24px; position: relative;top: -220px;">Wavelength (microns)</p>
+					<p style="font-size: 18px; position: relative;top: -280px;left: -450px;">\[ \left(\frac{R_p}{R_*}\right)^2 \]</p>
+					</div>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p> Understanding molecular features </p>
+					<img style="height: 590px;position: relative;left: 290px;top: -35px;" src="images/intro/molecules.png" alt="">
+					<p style="font-size: small;position: relative;top: -100px;left: 100px;"> Credits: Ariel red book, Tinetti et al. 2020</p>
+					<ul style="position: relative; left: -330px; top: -600px;width: 500px;">
+						<li class="fragment" style="font-size: smaller;">  Features appear as dips or bands in a spectrum</li>
+						<li style="font-size: smaller;" class="fragment"> Identification of molecules based on their characteristic absorption features</li>
+					</ul>
+					<aside class="notes">
+						These absorption features are unique to each molecule because they correspond to the energy levels required for transitions between molecular states
+						point to some particularly recognizable features, peaks of CO abrosption in the visible of VO TiO 
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p> Understanding molecular features </p>
+					<div class="r-stack">
+						<img style="height: 1000px;clip-path:inset(0px 700px 800px 0px); position: relative;top: 100px;left: 400px;" src="images/intro/molecules.png" alt="">
+						<p style="position: relative;top: -210px;font-size: 26px;">1</p>
+						<p style="position: relative;top: -210px;left: 80px; font-size: 26px;">2</p>
+						<p class="fragment" style="color: #0000ff;position: relative;top: -350px;left: 210px;"> H<sub>2</sub>O </p>
+						<p style="color: #18ff13;position: relative;top: -270px;left: 210px;" class="fragment"> CH<sub>4</sub> </p>
+					</div>
+
+					<ul style="position: relative; left: -350px; top: -900px;width: 500px;">
+						<li class="fragment" style="font-size: smaller;">  Features can overlap for some molecules </li>
+						<li style="font-size: smaller;" class="fragment"> Greater wavelength coverage is needed here</li>
+					</ul>
+					<aside class="notes">
+						Molecular absorption features can overlap, particularly if the wavelength range observed is narrow. It's potentially causing confusion if the wavelength coverage is limited.
+					</aside>
+				</section>
+
+				<section data-background-color="white">
+					<h4>Space Telescopes in exoplanet research</h4>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<img  src="./images/intro/hubble.png"  >
+					<p  style="position:relative; left:0px; top: -550px; color: #333333;"> Hubble Space telescope </p>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<img style="position:relative; left:-400px; top: 0px; " src="./images/intro/hubble.png" >
+					<p style="position:relative; left:0px; top: -510px; color: #333333;"> Hubble Space telescope </p>
+					<img class="fragment" style="position:relative; left:-0px; top: -140px; " src="./images/intro/frise1.png" width="1000">
+					<img class="fragment" style="position:relative; left:200px; top: -730px; height:400px ; "src="images/intro/example_hst.png" >
+					<p class="fragment" style="font-size: 18px;position: relative;top: -1180px;left: 190px;"> Example on WASP-39b, Panek et al. 2023</p>
+					<aside class="notes">
+						HST has been operational since 1990, and can oßserve exoplanets with transmission spectroscopy with multiple instruments, but I'm gonna focus today on the Wide field camera 3
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<img  src="./images/intro/jwst.png"  >
+					<p style="position:relative; left:0px; top: -550px; color: #333333;"> James Webb Space telescope </p>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<img style="position:relative; left:-400px; top: 30px; " src="./images/intro/jwst.png" >
+					<p style="position:relative; left:0px; top: -490px; color: #333333;"> James Webb Space telescope </p>
+					<img class="fragment" style="position:relative; left:-0px; top: -100px; " src="./images/intro/frise2.png" width="1000">
+					<img class="fragment" style="position:relative; left:200px; top: -720px; height:400px ; "src="images/intro/example_jwst.png" >
+					<p class="fragment" style="font-size: 18px;position: relative;top: -1170px;left: 190px;"> Example on WASP-121b, Jaziri et al. 2024</p>
+					<aside class="notes">
+						jwst launched in 2021, it can go from 0.6 to 28 microns, up to 5 microns two instruments can be used nirspec and nircam and frm 5 to 28microns it's the miri instrument, most exoplanet-focused studies with JWST prioritize wavelengths up to around 11 microns as the thermal background noise from JWST’s own instruments becomes more significant
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<img  src="./images/intro/ariel.png"  >
+					<p style="position:relative; left:0px; top: -500px; color: #333333;"> Ariel  Space telescope </p>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<img style="position:relative; left:-400px; top: 50px; " src="./images/intro/ariel.png" >
+					<p style="position:relative; left:0px; top: -410px; color: #333333;"> Ariel  Space telescope  </p>
+					<img class="fragment" style="position:relative; left:-0px; top: -50px; " src="./images/intro/frise3.png" width="1000">
+					<img class="fragment" style="position:relative; left:200px; top: -680px; height:400px ; "src="images/intro/example_ariel.png" >
+					<p class="fragment" style="font-size: 18px;position: relative;top: -1120px;left: 180px;"> Example on GJ 1214 b, Jaziri et al. 2024</p>
+					<aside class="notes">
+						Ariel planned to launch in 2029
+						FGS-NIRSpec (1.1–1.95 µm),
+						AIRS-Ch0 (1.95–3.9 µm), and AIRS-Ch1 (3.9–7.8 µm),
+						my PhD is taking place in the context of the preparation of the Ariel mission
+					</aside>
+				</section>
+
+
+			</section>
+
+
+			<!-- PARTIE 2 -->
+			<section>
+				<section data-background-color="white">
+					<h2>  Part 2: Methodology </h2>
+					<aside class="notes">
+						Now that I've set the context, let's move on to discuss the methodology I used
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>Data reduction</p>
+					<aside class="notes">
+						First thing first, when you obtain data you need to reeduce them. 
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p style="position: relative;top: -100px;">Data reduction</p>
+					<ul style="position: relative;top: -50px;">
+						<li class="fragment">Basic corrections</li>
+						<li class="fragment">Spectrum extraction</li>
+						<li class="fragment" >Systematic detrending</li>
+						<li class="fragment" >Resulting datapoints</li>
+					</ul>
+
+					<p class="fragment" style="font-size: smaller;position: relative;">→ Iraclis code, Tsiaras et al. 2018</p>
+
+					<aside class="notes">
+						The process requires multiple steps, first the corrections of for example flat field, dark current subtraction, correction for cosmic rays or bad pixels. Then the spectrum is extracted from the image, then the systematics of the instrument are accounted for both for the white light curve and spectral light curves and finally we can plot the resulting datapoints. For that during my phd i mainly used the Iraclis code developped by Angelos Tsiaras. I'm gonna detail and illustrate these steps. 
+					</aside>
+				</section>
+
+				<section data-background-color="white">
+					<p> Raw image </p>
+					<img style="height: 450px;position: relative;left: 200px;" src="images/method/forward_extraction_aperture_g141_1.png" alt="">
+					<p style="font-size: 24px;position: relative;top: -50px;left: 230px;"> Example on an observation of WASP-39b</p>
+					<ul style="position: relative; left: -350px; top: -500px;width: 450px;">
+						<li class="fragment" style="font-size: smaller;">  HST WFC3 scanning mode </li>
+						<li style="font-size: smaller;" class="fragment">  Extraction of lightcurve from the 2D image </li>
+					</ul>
+					<aside class="notes">
+						In scanning mode, rather than keeping the target star fixed on a single pixel, the telescope's target is deliberately "scanned" during the observation. This creates a streak of light rather than a single point, The main reason for doing that is to avoid saturating the detector while still collecting a large amount of photons. 
+						Columns corresponding to wavelengths. Rows is covering the streak of the star's light. For each exposure during the observation you will get such an image. 
+						extract the spectrum from this 2D image. This is done by identifying and following the trace of the star’s light on the detector. Once the trace is identified, you sum the pixel values  for each wavelength and then you can you sum the total flux over all the wavelengths for that particular exposure.  This process is repeated for all exposures over the course of the transit. 
+					</aside>
+				</section>
+
+				<section data-visibility="hidden" data-background-color="white" data-transition="none">
+					<p> Raw image </p>
+					<div class="r-stack">
+						<img  style="height: 450px;position: relative;left: 200px;" src="images/method/raw_jwst.png" alt="">
+						<p style="font-size: 24px;position: relative;top: 230px;left: 200px;">Example on an observation of L168-9b</p>
+						<ul style="position: relative; left: -300px; top: -50px;width: 500px;">
+							<li class="fragment" style="font-size: smaller;">  JWST MIRI instrument Low Resolution Spectrometer (LRS) in slitless mode </li>
+							<li style="font-size: smaller;" class="fragment"> Extraction of lightcurve from the 2D image </li>
+						</ul>
+					</div>
+				</section>
+
+				<section data-visibility="hidden" data-transition="none" data-background-color="white">
+					<p style="position: relative;top: 80px;"> Raw image </p>
+					<ul style="position: relative; left: -320px; top: 135px;width: 500px;">
+						<li style="font-size: smaller;">  JWST MIRI instrument Low Resolution Spectrometer (LRS) in slitless mode </li>
+						<li style="font-size: smaller;"> Extraction of lightcurve from the 2D image </li>
+					</ul>
+					<img style="height: 450px;position: relative;left: 200px; top: -180px;" src="images/method/raw_2_jwst.png" alt="">
+					<p style="font-size: 24px;position: relative;top: -230px;left: 200px;">Example on an observation of L168-9b</p>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p> White lightcurve </p>
+					<img style="height: 600px; clip-path:inset(0px 0px 450px 0px); position: relative;top: 200px;" src="images/method/white_fitting_g141_1.png" alt="">
+					<aside class="notes">
+						By doing this, you get a time series of the star’s total brightness at different times. This is the white light curve. First of all you can see that our data are not continuous HST orbits Earth approximately every 95 minutes, so the target is not continuously visible.  causing gaps in the time-series data.
+						The shape of the lc is highly dependant on the ld effect
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p> White lightcurve </p>
+					<img style="height: 500px; clip-path:inset(0px 0px 370px 0px); position: relative;top: 50px;left: 200px;" src="images/method/white_fitting_g141_1.png" alt="">
+					<img class="fragment" style="position: relative; left: -350px;top: -600px;" src="images/method/2012_Transit_of_Venus_from_SF-removebg-preview.png" alt="">
+					<ul style="position: relative; left: 200px; top: -850px;width: 500px;">
+						<li class="fragment" style="font-size: smaller;">  Limb-darkening effect </li>
+						<li style="font-size: smaller;" class="fragment"> Difference in optical depth between the center and the limb of the star </li>
+					</ul>
+					<p class="fragment" style="font-size: 28px;position: relative;top: -850px;left: 200px;"> → Calculated with Exotethys, Morello et al. 2019</p>
+					<aside class="notes">
+						Limb darkening is a phenomenon where the star appears dimmer near its edges (limb) than at the center. This happens because we view different layers of the star’s atmosphere at different angles: toward the edges, we are looking through more of the star's cooler upper atmosphere, whereas at the center, we see deeper, hotter layers. 
+						We take this ld effect into account by modeling it with  a quadratic function and I calculated the limb dakrneing coefficients using exotethys presented in morello and collborators 2019.
+					</aside>
+				</section>
+
+				<section  data-visibility="hidden" data-background-color="white" data-auto-animate="">
+					<p>Limb-darkening effect</p>
+					<img style=" clip-path:inset(86px 730px 0px 0px); position: relative;top: -0px;left: 350px;" src="images/method/lc_with_ld_changing_3.png" alt="">
+				</section>
+
+				<section data-visibility="hidden" data-background-color="white" data-auto-animate="">
+					<p>Limb-darkening effect</p>
+					<img style=" clip-path:inset(86px 540px 0px 0px); position: relative;top: -0px;left: 200px;" src="images/method/lc_with_ld_changing_3.png" alt="">
+				</section>
+
+				<section   data-visibility="hidden" data-background-color="white" data-auto-animate="">
+					<p>Limb-darkening effect</p>
+					<img style="clip-path:inset(86px 0px 0px 0px); position: relative;top: -0px;left: 0px;" src="images/method/lc_with_ld_changing_3.png" alt="">
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>Fitting the white light curve</p>
+					<img style="height: 570px;position: relative;left: 200px;top: -15px;" src="images/method/white_correlations_g141_1.png" alt="">
+					<ul style="position: relative; left: -200px; top: -550px;width: 500px;">
+						<li class="fragment" style="font-size: smaller;"> Long-term ramp</li>
+						<li style="font-size: smaller;" class="fragment"> Short-term ramps</li>
+						<li style="font-size: smaller;" class="fragment"> Scanning direction</li>
+						<li style="font-size: smaller;" class="fragment"> Radius ratio</li>
+						<li style="font-size: smaller;" class="fragment"> Mid-transit time</li>
+						<p style="font-size: 30px;position: relative;left: -100px;"> \[  n_\omega^{scan} = (1-r_{a1}(t-T_0)) (1-r_{b1} e^{- r_{b2} (t-t_0)})  \] </p>
+					</ul>
+					<aside class="notes">
+						When using systematic effects must be modeled and corrected. Long-term ramps: These are gradual trends in the data over an entire orbit or across multiple orbits. Over the course of a visit, the response of the instrument may change slowly, causing a ramp-like increase or decrease in the flux recorded. Short-term ramps: These are similar in shape but occur over shorter timescales, typically at the start of each HST orbit. They are also due to instrumental effects like detector warming up or settling down after being in Earth’s shadow (where HST cools slightly) 
+						, n scan is the normalisation factor, T0 is the mid-transit time, to is the time when each HST orbit starts, ra is the slope of the linear, longterm ramp and (rb1,rb2) are the coefficients of the exponential short-term ramp. 
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p style="position: relative;top: 50px;"> White lightcurve </p>
+					<img style="height: 600px; clip-path:inset(0px 0px 450px 0px); position: relative;top: 200px;" src="images/method/white_fitting_g141_1.png" alt="">
+				</section>
+
+				<section data-auto-animate="" data-background-color="white">
+					<p> White lightcurve </p>
+					<img style="height: 450px;" src="images/method/white_fitting_g141_1.png" alt="">
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>Spectral light-curves</p>
+					<img style="height: 450px;clip-path:inset(0px 179px 0px 0px);position: relative;left: 80px;" src="images/method/all_fitting.png" alt="">
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>Spectral light-curves</p>
+					<img style="height: 450px;clip-path:inset(0px 179px 0px 0px);position: relative;left: -200px;top: 30px;" src="images/method/all_fitting.png" alt="">
+					<img style="height: 280px;position: relative;left: 280px;top: -400px;" src="images/method/dataset_example.png" alt="">
+					<p style="font-size: 28px; position: relative;top: -400px;left: 300px;"> Resulting datapoints for WASP-39b</p>
+				</section>
+
+
+				<section data-background-color="white">
+					<p style="position: relative;top: 20px;">Forward Modeling</p>
+					<img style="height: 100px;position: relative;top: -90px;left: -300px;" src="images/method/taurex_logo.webp" alt="">
+					<p style="font-size: 24px;position: relative;top: -120px;" class="fragment"> →  TauREx code, Waldmann et al. 2015, Al-Refaie et al. 2019</p>
+					<div class="r-stack">
+						<img style="position: relative;top: -150px;" class="fragment current-visible" src="images/method/forward.png" alt="">
+						<img style="position: relative;top: -100px;" class="fragment current-visible" src="images/method/forward_info.png" alt="">
+					</div>
+				</section>
+				
+				<section data-visibility="hidden" data-background-color="white">
+					<p style="position: relative;top: -100px;">Input parameters: temperature</p>
+					<div class="r-stack">
+						<li class="fragment" style="position: relative;top: -200px;left: -330px;">Isothermal profile</li>
+						<li class="fragment" style="position: relative;top: -150px;left: -367px;">Guillot profile</li>
+						<img class="fragment" style="height: 400px; position: relative;top: -100px;left: 250px;" src="images/method/guillot.png" alt="">
+						<li class="fragment" style="position: relative;top: -100px;left: -352px;">4-points profile</li>
+						<img class="fragment"  style="height: 400px; position: relative;top: -100px;left: 250px;"src="images/method/4point.png" alt="">
+						<li class="fragment" style="position: relative;top: -50px;left: -352px;"> External profile</li>
+						<img class="fragment" style="height: 400px; position: relative;top: -100px;left: 250px;" src="images/method/venot.png" alt="">
+						<p class="fragment current-visible" style="font-size: 20px;position: relative;top: 110px;left: 110px;"> Venot et al. 2020 </p>
+						<img class="fragment"  style="height: 400px; position: relative;top: -100px;left: 250px;"src="images/method/temp.png" alt="">
+					</div>
+				</section>
+
+				<section data-visibility="hidden" data-background-color="white">
+					<p style="position: relative;top: -100px;">Input parameters</p>
+					<div class="r-stack">
+						<li class="fragment" style="position: relative;top: -250px;left: -215px;">Collision Induced Absorption</li>
+						<li class="fragment" style="position: relative;top: -200px;left: -300px;">Rayleigh scattering</li>
+						<img style="height: 400px; position: relative;top: -20px;left: 300px;" class="fragment current-visible" src="images/method/rayleigh.png" alt="">
+						<p class="fragment" style="position: relative;top: -130px;left: -430px;">Clouds</p>
+						<li class="fragment" style="position: relative;top: -85px;left: -415px;">Hazes</li>
+						<img style="position: relative;left: 150px;top: -20px;" class="fragment current-visible" src="images/method/sing.png" alt="">
+						<li class="fragment" style="position: relative;top: -40px;left: -369px;">Cloud deck</li>
+						<img style="position: relative;left: 150px;top: 100px;" class="fragment" src="images/method/sing2.png" alt="">
+					</div>
+				</section>
+
+				<section data-auto-animate="" data-background-color="white">
+					<p>Retrievals</p>
+					<img style="height: 100px;position: relative;top: -120px;left: -200px;" src="images/method/taurex_logo.webp" alt="">
+					<img style="position: relative;top: -100px;" src="images/method/retrieval.png" alt="">
+					<p style="font-size: 24px;position: relative;top: -630px;"> →  TauREx code, Waldmann et al. 2015, Al-Refaie et al. 2019</p>
+					<aside class="notes">
+						Retrieval analysis in the method used to infer the physical and chemical properties of an exoplanet’s atmosphere from observed data. The goal is to reverse engineer the observed spectrum by exploring a wide range of possible atmospheric models to find the best fit to the data. This process involves a lot of uncertainty because there can be many combinations of atmospheric properties that can produce similar spectra. Bayesian statistics provides a framework to handle this uncertainty systematically by using probability distributions to describe the likelihood of different models and parameters.
+					</aside>
+				</section>
+				
+
+				<section data-auto-animate="" data-background-color="white">
+					<p style="position: relative;top: -0px;">Bayesian statistics</p>
+					<p class="fragment" style="position: relative;top: -0px;">Uses Bayes' Theorem to update the probability of a hypothesis given evidence.</p>
+					<p class="fragment" style="position: relative;top: -0px;">
+						\[ P(\theta |D)= \frac{P(D|\theta)P(\theta)}{P(D)} \]
+					</p>
+					<ul class="fragment current-visible" style="position: relative;top: 0px;left: 50px;">
+						<li style="font-size: smaller;" ><strong> P(θ|D):</strong> Posterior probability </li>
+						<li style="font-size: smaller;"><strong> P(D|θ):</strong> Likelihood </li>
+						<li style="font-size: smaller;"><strong>P(θ):</strong> Prior probability </li>
+						<li style="font-size: smaller;"><strong>P(D):</strong> Marginal likelihood </li>
+					</ul>
+					<aside class="notes">
+						the likelihood, which tells us how likely the observed data D are given a particular set of parameters θ. It is typically calculated by comparing the model predictions to the observed data.
+						P(θ) is the prior probability distribution, representing what we knew or assumed about the parameters before seeing the data. For example, we might have prior knowledge that water vapor is likely present in the atmosphere, or we might assume a range of possible temperatures. P(D) is the evidence or marginal likelihood, which is the probability of the data, irrespective of the specific model parameters. It is calculated by integrating the likelihood over all possible parameter values.
+					</aside>
+				</section>
+
+				<section data-visibility="hidden">
+					<h2>Key Concepts in Bayesian Inference</h2>
+					<ul>
+						<li><strong>Priors:</strong> Initial belief or information about a parameter before data is observed.</li>
+						<li><strong>Likelihood:</strong> How probable the observed data is under a specific hypothesis.</li>
+						<li><strong>Posterior:</strong> Updated belief after observing the data.</li>
+						<li><strong>Marginal Likelihood:</strong> Overall probability of the observed data under all hypotheses.</li>
+					</ul>
+				</section>
+	
+				<section data-visibility="hidden">
+					<h2>Prior vs Posterior</h2>
+					<p>The **prior** is your belief before seeing the data, and the **posterior** is the updated belief after seeing the data.</p>
+					<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Example_of_bayes_update.svg/1280px-Example_of_bayes_update.svg.png" alt="Prior vs Posterior" style="width:500px">
+					<p>This illustrates how evidence adjusts your initial beliefs.</p>
+				</section>
+	
+				<section data-auto-animate="" data-background-color="white">
+					<p style="position: relative;top: -70px;">Evidence</p>
+					<p style="font-size: 30px;position: relative;top: -70px;" class="fragment">
+						\[ P(D) = \int P(D|\theta)P(\theta) d\theta \]
+					</p>
+					<p style="font-size: 30px;position: relative;top: -70px;" class="fragment">integral over all the information you have about a problem</p>
+					<p class="fragment">Bayes factor</p>
+					<p style="font-size: 30px;" class="fragment">
+						\[ B = \frac{P(D;M_2)}{P(D;M_1)} \]
+					</p>
+					<p style="font-size: 30px;" class="fragment">allows us to pick
+						which model will best describe the data
+					</p>
+					<aside class="notes">
+						The evidence or marginal likelihood P(D) plays an important role in model comparison. When comparing different models, the Bayesian evidence tells us which model is more likely given the data
+						The Bayes factor compares two models by computing the ratio of their evidence
+					</aside>
+				</section>
+	
+				<section data-auto-animate="" data-background-color="white">
+					<p style="position: relative;top: -00px;">Nested Sampling</p>
+					<ol style="position: relative;top: 30px;left: -250px; width: 600px;">
+						<li class="fragment">Start with a set of random samples in the parameter space.</li>
+						<li class="fragment">Iteratively discard points with low likelihood and replace them with points of higher likelihood.</li>
+						<li class="fragment">Continue until the evidence is accurately estimated.</li>
+					</ol>
+					<img class="fragment" style=" height: 400px; position: relative;left: 330px; top: -400px;" src="images/part4/likelihood_buchner.png" alt="">
+					<p class="fragment" style="font-size: 18px;position: relative;top: -440px;left: 330px;" >Credits: Buchner 2023</p>
+					<aside class="notes">
+						Nested sampling is a statistical technique used to compute Bayesian evidence and explore the posterior distribution efficiently.
+						1. Nested sampling begins by randomly sampling points from the prior distribution. These points represent potential combinations of model parameters 
+						2. It then iteratively removes the points with the lowest likelihood and replaces them with new points that have higher likelihoods, but still satisfy the prior constraints.
+						3. As the algorithm progresses, it keeps track of the shrinking volume of parameter space that is being explored and estimates the evidence by summing the likelihoods at each stage.
+						good balance between exploration and precision
+					</aside>
+				</section>
+	
+				<section data-visibility="hidden">
+					<h2>Visualizing Nested Sampling</h2>
+					<p>Nested sampling explores higher-likelihood regions of the parameter space more effectively:</p>
+					<img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Nested_sampling_diagram.png" alt="Nested Sampling Visualization" style="width:500px">
+					<p>The algorithm narrows down on the high-likelihood regions.</p>
+				</section>
+	
+				<section data-visibility="hidden">
+					<h2>When to Use Nested Sampling?</h2>
+					<ul>
+						<li>When the posterior distribution is multi-modal or has complex shapes.</li>
+						<li>When Bayesian evidence (marginal likelihood) is required for model comparison.</li>
+						<li>Effective for problems with high-dimensional parameter spaces.</li>
+					</ul>
+				</section>
+				
+
+
+			</section>
+
+			<!-- PARTIE 3 -->
+			<section>
+				<section data-background-color="white">
+					<h2>  Part 3: Application to data </h2>
+					<aside class="notes">
+						Now I'm gonna present the application of this methodology to real data 
+					</aside>
+				</section>
+
+				<section data-background-color="white">
+					<p>Study of 5 Hot Jupiters with equilibrium chemistry</p>
+					<img src="images/part3/papier.png" alt="">
+					<aside class="notes">
+						I'm gonna start by talking in detail about this paper I published last year, on the re-analysis of equilibrium chemistry in five hot jupiuter atmospheres
+					</aside>
+				</section>
+
+				<section  data-background-color="white" data-auto-animate="">
+					<p>The targets</p>
+					<img style="height: 400px;" src="images/part3/hatp12.png" alt="">
+				</section>
+
+				<section  data-background-color="white" data-auto-animate="">
+					<p style="position: relative;top: -130px;">The targets</p>
+					<img style="height: 300px;position: relative;left: -100px;top: -150px;" src="images/part3/hatp12.png" alt="">
+					<img style="height: 300px;position: relative;left: 150px; top: -150px;" src="images/part3/wasp6.png" alt="">
+				</section>
+
+				<section  data-background-color="white" data-auto-animate="">
+					<p style="position: relative;top: -130px;">The targets</p>
+					<img style="height: 300px;position: relative;left: -100px;top: -150px;" src="images/part3/hatp12.png" alt="">
+					<img style="height: 300px;position: relative;left: -0px; top: -150px;" src="images/part3/wasp6.png" alt="">
+					<img style="height: 300px;position: relative;left: 100px;top: -150px;" src="images/part3/wasp39.png" alt="">
+				</section>
+
+
+				<section  data-background-color="white" data-auto-animate="">
+					<p style="position: relative;top: -4px;">The targets</p>
+					<img style="height: 300px;position: relative;left: -100px;top: -25px;" src="images/part3/hatp12.png" alt="">
+					<img style="height: 300px;position: relative;left: 0px; top: -25px;" src="images/part3/wasp6.png" alt="">
+					<img style="height: 300px;position: relative;left: 100px;top: -25px;" src="images/part3/wasp39.png" alt="">
+					<img style="height: 300px; position: relative;left: -200px; top: -80px;" src="images/part3/hd209.png" alt="">
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p style="position: relative;top: -4px;">The targets</p>
+					<img style="height: 300px;position: relative;left: -100px;top: -25px;" src="images/part3/hatp12.png" alt="">
+					<img style="height: 300px;position: relative;left: 0px; top: -25px;" src="images/part3/wasp6.png" alt="">
+					<img style="height: 300px;position: relative;left: 100px;top: -25px;" src="images/part3/wasp39.png" alt="">
+					<img style="height: 300px; position: relative;left: -50px; top: -80px;" src="images/part3/hd209.png" alt="">
+					<img style="height: 300px;position: relative;top: -80px;left: 70px;" src="images/part3/wasp17.png" alt="">
+					<aside class="notes">
+						They are hot Jupiters, so they have strong signal-to-noise ratios (S/Ns), but they nevertheless present a variety of different parameters: radii ranging from a 0.9 to 1.9 Jupiter radius and atmospheric temperatures varying from 1000 K to 1700 K.
+					</aside>
+				</section>
+
+				<section data-background-color="white">
+					<p style="position: relative;left: -300px;">The datasets</p>
+					<div class="r-stack">
+						<img style="height: 700px;position: relative;left: 250px;top: -130px;" src="images/part3/comp_litt_5.jpeg" alt="">
+						<ul style="position: relative; left: -330px; top: -150px;width: 500px;">
+							<li class="fragment" style="font-size: smaller;"> Data reduction made with Iraclis (Tsiaras et al. 2018)</li>
+							<li style="font-size: smaller;" class="fragment"> Consistent with other reductions in the litterature</li>
+							<li style="font-size: smaller;" class="fragment"> Addition of HST STIS dataset from Sing et al. 2016 </li>
+						</ul>
+						<img class="fragment" style="height: 700px;position: relative;top: -120px;left: 300px;" src="images/part3/sing2016.png" alt="">
+					</div>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>Sodium and potassium signatures </p>
+					<p style="font-size: 30px;">The Rossiter-Mclaughlin effect</p>
+					<img class="fragment" src="images/part3/The-Rossiter-McLaughlin-Effect-As-the-planet-transits-the-star-during-its-ingress.png" alt="">
+					<p class="fragment" style="font-size: 18px;">Source: Hamacher (2008)</p>
+					<aside class="notes">
+						The Rossiter-McLaughlin effect occurs when an object, blocks part of a rotating star as it crosses in front of it. This phenomenon isn't unique to exoplanets and was originally observed in eclipsing binary star systems. In our case, as the planet blocks the portion of the star that’s rotating toward us, the overall starlight becomes less blue-shifted. And when it blocks the part of the star rotating away, the starlight becomes less red-shifted. This creates a detectable distortion in the star’s spectral lines
+					</aside>
+					<p></p>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<div class="r-stack">
+						<p style="position: relative;left: -320px;top: -300px;">Sodium and potassium signatures </p>
+						<ul style="width: 500px;position: relative;left: -350px;top: -50px;">
+							<li style="font-size: 30px;" class="fragment" data-fragment-index="1"> Detection of Na and K questioned in HD 209458b</li>
+							<li style="font-size: 30px;" class="fragment" data-fragment-index="2">Casasayas-Barris, N. et al. (2020, 2021); Morello et al.
+								(2022)</li>
+						</ul>
+						<img class="fragment current-visible" data-fragment-index="3" style="height: 650px;position: relative;top: -0px;left: 300px;" src="images/part3/nak_5.png" alt="">
+						<img class="fragment current-visible" data-fragment-index="4" style="height: 600px;position: relative;top: -0px;left: 300px;" src="images/part3/posteriors_NAK_209.png" alt="">
+						<li style="font-size: 30px;position: relative;top: 60px;left: -370px;" class="fragment" data-fragment-index="4">No differences on the retrieval results</li>
+						
+					</div>
+					
+					<aside class="notes">
+						Depending on how we take the Rossiter-Mclaughlin effect into account, we could observe lines
+						of the star in the planet’s spectrum. We chose to have a look on these two species after multiple, recent papers that weren't detecting them at high resolution on hd209, we try to remove them form the data to see if they would have an impact on other results of the retrieval. By comparing our data set with models of sodium and potassium absorption contribution we removed points considered contaminated by these
+absorptions
+					</aside>
+				</section>
+
+				<section data-visibility="hidden" data-background-color="white">
+					<p>Equilibrium chemistry</p>
+				</section>
+
+				<section data-background-color="white">
+					<p style="position: relative;top: -50px;">Modeling set-ups</p>
+					<ul style="position: relative; left: 0px; top: -50px;width: 950px;">
+						<li class="fragment" style="font-size: smaller;"> Free chemistry (Al-Refaie et al. 2019)</li>
+						<p style="font-size: 30px;" class="fragment"> Constant abundances, species considered : H<sub>2</sub>O, CH<sub>4</sub>, NH<sub>3</sub>, HCN, CO, CO<sub>2</sub>, Na, K, H<sub>2</sub>S, TiH, and AlO </p>
+						<li style="font-size: smaller;" class="fragment"> ACE equilibrium (Agundez et al. 2012, 2020)</li>
+						<p style="font-size: 30px;" class="fragment">data from NASA/CEA and
+							the Third Millennium Thermochemical Database and includes 105 neutral species</p>
+						<li style="font-size: smaller;" class="fragment"> Fastchem equilibrium (Stock et al. 2018)</li>
+						<p style="font-size: 30px;" class="fragment"> data from NIST-JANAF database, it handles 396 neutral and 114 charged species</p>
+					</ul>
+
+					<aside class="notes">
+						equilibrium chemistry refers to the state in which the chemical composition has reached a balance determined by thermodynamic conditions—specifically temperature and pressure. At constant temperature and pressure, a system will naturally move towards the state that minimizes its Gibbs free energy, because this corresponds to a stable, lowest-energy configuration.
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>Results</p>
+					<div class="r-stack">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/step_1.png" alt="">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/step_2.png" alt="">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/step_3.png" alt="">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/step_4.png" alt="">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/step_5.png" alt="">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/pl5.png" alt="">
+						<p style="font-size: 20px; position: relative;left: 450px;top: -300px;">* CH = Clouds & Hazes</p>
+						<p style="font-size: 25px; position: relative;left: 0px;top: 220px;">From Panek et al. 2023</p>
+					</div>
+					<aside class="notes">
+						i'm gonna detail the results on one of the planet and then i'll go a little bit more quiclky on the other ones
+						talk about water, methane and ammonia features
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>Results</p>
+					<img style="height: 600px;position: relative;top: -40px;" src="images/part3/w39_output_posteriors.png" alt="">
+					<aside class="notes">
+						big correlation between C/O and metallicity, which is expected, C/O on the edge of the parameter space explored, meaning 
+						This represents a very oxygen-rich atmosphere, with the ratio of carbon to oxygen being only 1%. Such low C/O ratios imply that oxygen-bearing molecules (like H₂O, CO₂) will dominate, while carbon-bearing molecules (like CO, CH₄) are less abundant.
+						could be the confusion i told you about earlier
+						especially gas giants, are expected to have C/O ratios near or below solar (around 0.55)
+						C/O = 0.01 still allows for an atmosphere where oxygen is extremely dominant, but below this value, the carbon content would be so low that carbon-based molecules might become essentially undetectable.
+						The C/O ratio is thought to be linked to the location of the planet’s formation in the protoplanetary disk. Planets that form inside the water ice line are expected to have low C/O ratios (closer to the solar value), as they accrete more oxygen-rich materials like silicates and water. Planets that form farther out in the disk, where carbon-rich materials are more abundant, can have elevated C/O ratios.
+						A C/O ratio significantly lower than 0.01 implies an extremely oxygen-rich environment, which is not commonly observed or predicted in current planet formation models. 
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>Results</p>
+					<div class="r-stack">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/pl1.png" alt="">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/pl2.png" alt="">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/pl3.png" alt="">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/pl4.png" alt="">
+						<p style="font-size: 20px; position: relative;left: 450px;top: -300px;">* CH = Clouds & Hazes</p>
+						<p style="font-size: 25px; position: relative;left: 0px;top: 220px;">From Panek et al. 2023</p>
+					</div>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p style="position: relative;top: -150px;">Results</p>
+					<ul style="position: relative;top: -100px;">
+						<li class="fragment">Equilibrium chemistry is favored every time in our study</li>
+						<li class="fragment"> Necessary when looking at Hot Jupiters</li>
+
+						<li class="fragment">
+							the removal of Na and K impacted datapoints doesn't change the results of the retrieval 
+						</li>
+					</ul>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>And what if there is disequilibrium chemistry? </p>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p style="position: relative;top: -100px;">And what if there is disequilibrium chemistry? </p>
+					<div class="r-stack">
+						<ul>
+							<li class="fragment" style="font-size: smaller;position: relative;left: -400px;top: -200px;">Dynamics</li>
+							<li class="fragment" style="font-size: smaller;position: relative;left: -400px;top: -190px;">Photochemistry</li>
+						</ul>
+						<img class="fragment" style="height: 400px;position: relative;left: 250px;top: -100px;" src="images/part3/diseq1.png" alt="">
+						<img class="fragment" style="height: 300px;position: relative;top: 50px;left: -300px;" src="images/part3/diseq2.png" alt="">
+					</div>
+					<aside class="notes">
+						disequilibrium chemistry arises when the actual chemical composition deviates from this thermodynamic balance. Disequilibrium can occur due to external influences or when chemical reactions are unable to keep up with rapidly changing conditions. Two key mechanisms that can lead to disequilibrium in planetary atmospheres are quenching and photochemistry.
+						Quenching refers to a situation where vertical mixing in an atmosphere transports gases between regions of different temperatures and pressures faster than chemical reactions can adjust to reach equilibrium.
+						Photochemistry refers to chemical reactions that are driven by the absorption of high-energy photons, particularly ultraviolet (UV) light from a star.
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>And what if there is disequilibrium chemistry? </p>
+					<p style="font-size: smaller;">Full and Reduced Exoplanet Chemical Kinetics distiLLed (Al-Refaie et al. 2022)
+					</p>
+					<img src="images/part3/ahmed_diseq.png" alt="">
+					<aside class="notes">
+						Full : 108 species, 1906 reactions and 55 photodissociations
+						Reduced : 44 species and 582
+
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>And what if there is disequilibrium chemistry? </p>
+					<div class="r-stack">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/des_pl5.png" alt="">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/des_pl1.png" alt="">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/des_pl2.png" alt="">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/des_pl3.png" alt="">
+						<img style="position: relative;top: -50px;" class="fragment current-visible" src="images/part3/des_pl4.png" alt="">
+						<p style="font-size: 20px; position: relative;left: 450px;top: -270px;">* CH = Clouds & Hazes</p>
+						<p style="font-size: 25px; position: relative;left: 0px;top: 220px;">From Panek et al., in prep.</p>
+					</div>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p style="position: relative;top: -150px;">And what if there is disequilibrium chemistry? </p>
+					<ul style="position: relative;top: -100px;">
+						<li class="fragment">
+							HST data don’t have a good enough resolution to distinguish between equilibrium and disequilibrium models
+						</li>
+						<li class="fragment">
+							Need better resolution and greater wavelength coverage to see disequilibrium features
+						</li>
+					</ul>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>What about JWST data?</p>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p style="position: relative;top: -80px;">What about JWST data?</p>
+					<div class="r-stack">
+						<ul style="position: relative; left: -300px; top: -100px;width: 500px;">
+							<li class="fragment" style="font-size: smaller;"> SO<sub>2</sub> detected in multiple atmospheres </li>
+							<li style="font-size: smaller;" class="fragment"> First detection of photochemistry</li>
+							<li style="font-size: smaller;" class="fragment"> Disequilibrium is in fact observable with JWST</li>
+						</ul>
+						<img class="fragment"  style="height: 350px;position: relative;top: -50px; left: 300px;" src="images/part3/example1_jwst.png" alt="">
+						<p style="font-size: 25px;position: relative;top: 170px;left: 300px;" class="fragment current-visible">WASP-39b, Tsai et al. 2023</p>
+						<img class="fragment" style="height: 400px; position: relative;top: -50px;left: 300px;" src="images/part3/example2_jwst.png" alt="">
+						<p style="font-size: 25px;position: relative;top: 170px;left: 300px;" class="fragment">WASP-107b, Dyrek et al. 2024</p>
+					</div>
+					<aside class="notes">
+						The presence of SO₂ points to a chemical cycle driven by high-energy UV light. The photodissociation of H₂O and other molecules produces radicals like hydroxyl (OH), which can then react with sulfur-bearing molecules, ultimately leading to SO₂. This is the first time such a chemical process has been observed directly on an exoplanet
+						WASP-39b part of ers nirspec observation around 4microns
+						WASP-107b, jupiter like radius 1/10 of the mass 700K puffy sub neptune observation with MIRI
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p style="position: relative;top: -70px;">What about JWST data?</p>
+					<div class="r-stack">
+						<ul style="position: relative; left: -350px; top: -100px;width: 500px;">
+							<li class="fragment" style="font-size: smaller;"> JWST public datasets </li>
+							<li style="font-size: smaller;" class="fragment"> Apply both equilibrium and disequilibrium assumption</li>
+							<li style="font-size: smaller;" class="fragment"> See if the added complexity is visible in the results</li>
+						</ul>
+						<img style="height: 270px; position: relative;top: -100px; left: 250px;" class="fragment" src="images/part3/example3_jwst.png" alt="">
+						<p style="font-size: 25px;position: relative;top: 100px;left: 300px;" class="fragment current"> Example of WASP-17b dataset from Grant et al. 2024 </p>
+						<img style="height: 430px; position: relative;top: -60px;left: 250px;" class="fragment" src="images/part3/example4_jwst.png" alt="">
+						<p style="font-size: 25px;position: relative;top: 200px;left: 300px;" class="fragment current-visible">Example of HD 209458b dataset from Xue et al. 2024</p>
+					</div>
+					<aside class="notes">
+						WASP17b MIRI LRS observation
+						hd209 nircam observation, no evidence for methane 
+					</aside>
+				</section>
+
+				<section data-background-color="white">
+					<p style="position: relative;top: -100px;">Conclusions</p>
+					<ul style="position: relative; left: 0px; top: -80px;width: 800px;">
+						<li class="fragment" style="font-size: smaller;"> JWST can observe disequilibrium features </li>
+						<li class="fragment" style="font-size: smaller;"> The next step is to try FRECKLL on JWST data  for our targets </li>
+						<li style="font-size: smaller;" class="fragment"> Work in progress
+						</li>
+					</ul>
+				</section>
+
+			</section>
+
+			<!-- PARTIE 4 -->
+			<section>
+				<section data-background-color="white">
+					<h2>  Part 4: What are the potential limitations? </h2>
+					<aside class="notes">
+						Although our techniques are powerful, it’s important to acknowledge the limitations of current methods and technologies. This brings us to the final part of my presentation: what challenges do we face in exoplanet transmission spectroscopy, and what innovations are on the horizon to overcome them?
+					</aside>
+				</section>
+
+				<section data-auto-animate="" data-background-color="white">
+					<p>1D/3D bias</p>
+					<aside class="notes">
+						One limitation we face is the simplification of exoplanet atmospheres in our models. Most models assume that atmospheres are uniform and spherical, but in reality, they are three-dimensional systems with complex weather patterns and temperature variations. This introduces uncertainties that can complicate our interpretations.
+					</aside>
+				</section>
+
+				<section data-auto-animate="" data-background-color="white"> 
+					<p style="position: relative;top: -130px;">1D/3D bias</p>
+					<div class="r-stack" style="position: relative;top: -50px;">
+						<ul>
+							<li style="position: relative;top: -100px;" class="fragment" data-fragment-index="1">Collaboration to characterize the bias from 3D effect</li>
+							<p class="fragment" style="font-size: 24px;position: relative;top: -120px;left: -180px;" data-fragment-index="2">GJ 1214b, warm sub-Neptune, T<sub>eq</sub> = 600 K</p>
+							<p class="fragment" style="font-size: 24px;position: relative;top: -175px;left: 270px;" data-fragment-index="2" >HD 189733b, Hot Jupiter, T<sub>eq</sub> = 1200 K</p>
+							<p class="fragment" style="font-size: 24px;position: relative;top: -230px;left: 670px;" data-fragment-index="2">WASP-121b, Ultra Hot Jupiter, T<sub>eq</sub> = 2400 K</p>
+							<li class="fragment" style="position: relative;top: 130px;" data-fragment-index="3">Details in Jaziri et al. 2024</li>
+						</ul>
+						<img class="fragment" data-fragment-index="2" src="images/part4/gj.gif" style="position: relative;left: -450px;top: 20px;" alt="">
+						<img class="fragment" data-fragment-index="2" src="images/part4/hd.gif" style="position: relative;left: 20px;top: 20px;" alt="">
+						<img class="fragment" data-fragment-index="2" src="images/part4/wasp.gif" style="position: relative;left: 450px;top: 20px;" alt="">
+					</div>
+					<aside class="notes">
+						600 K (cooler planets): Longer radiative timescales lead to more global, uniform circulation patterns, with weaker zonal flows and no pronounced equatorial jet.
+						1200 K (moderate temperatures): Radiative timescales and wave activity are balanced, driving strong day-night temperature contrasts and the formation of an equatorial jet through superrotation.
+						2400 K (hotter planets): Short radiative timescales and intense heating create highly chaotic, turbulent atmospheres where organized equatorial jets may not form.
+					</aside>
+				</section>
+
+				<section data-auto-animate="" data-background-color="white">
+					<p style="position: relative;top: -20px;">1D/3D bias</p>
+					<ul>
+						<li style="font-size: 30px; position: relative;top: -50px;">Details in Jaziri et al. 2024</li>
+					</ul>
+					<img style="height: 550px; position: relative;top: -70px;" src="images/part4/spectra.png" alt="">
+					<p class="fragment" style="font-size: 30px; position: relative;top: -580px;left: -550px;">1D assumption</p>
+					<p class="fragment" style="font-size: 30px; position: relative;top: -380px;left: -550px;">3D assumption</p>
+					<p class="fragment" style="font-size: 28px; position: relative;top: -260px;left: -200px;">Constant chemistry</p>
+					<p class="fragment" style="font-size: 28px; position: relative;top: -317px;left: 200px;">Equilibrium chemistry</p>
+				</section>
+
+				<section data-auto-animate="" data-background-color="white">
+					<p  style="position: relative;top: -20px;">1D/3D bias</p>
+					<ul>
+						<li style="font-size: 30px; position: relative;top: -50px;">Details in Jaziri et al. 2024</li>
+					</ul>
+					<img style="position: relative;top: -50px;left: 100px;" src="images/part4/ccl.png" alt="">
+					<p style="font-size: 30px; position: relative;top: -500px;left: -400px;">Bigger biases for hotter planets</p>
+				</section>
+
+				<section data-visibility="hidden" data-background-color="white" data-auto-animate="">
+					<p>Convolutional Neural Network</p>
+				</section>
+
+				<section data-visibility="hidden" data-auto-animate="" data-background-color="white">
+					<p style="position: relative;top: -200px;">Convolutional Neural Network</p>
+                	<ul style="position: relative;top: -100px;">
+                    	<li class="fragment">Effective in recognizing patterns in images and videos</li>
+                    	<li class="fragment">Can classify objects, detect features, and more</li>
+                	</ul>
+				</section>
+
+				<section data-visibility="hidden" data-auto-animate="" data-background-color="white">
+					<p style="position: relative;top: -150px;">Convolutional Neural Network</p>
+					<div class="r-stack">
+						<ol style="position:relative ;top: -150px;">
+							<li style="font-size: 36px;" class="fragment"><strong>Input Layer:</strong> Takes the raw image as input</li>
+							<li style="font-size: 36px;" class="fragment"><strong>Convolutional Layer:</strong> Applies filters to detect features</li>
+							<li style="font-size: 36px;" class="fragment"><strong>Pooling Layer:</strong> Reduces the dimensionality, preserving important features.</li>
+							<li style="font-size: 36px;" class="fragment"><strong>Fully Connected Layer:</strong> Combines features to make predictions.</li>
+						</ol>
+						<img  style="position: relative;top: 100px;" src="images/part4/cnn.png" alt="">
+					</div>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>The Ariel Data Challenge 2023</p>
+					<aside class="notes">
+						Another limitation of our method will be the upcoming really big amount of data, we will need to find a way to process it efficiently. Analysing one spectrum at a time is not going to be possible anymore. We will need to find a way to process all the data at once. This is where machine learning comes in. Machine learning algorithms can be trained to recognize patterns in large datasets and make predictions based on those patterns. 
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p style="position: relative;top: -50px;">The Ariel Data Challenge 2023</p>
+					<div class="r-stack">
+						<ul style="position: relative;top: -50px;left: -250px; width: 650px;">
+							<li class="fragment"> Preparing data from the Ariel mission</li>
+							<li class="fragment"> Improving methods for analyzing data</li>
+							<li class="fragment">Enhancing integration of ML in exoplanet science</li>
+						</ul>
+						<img style="height: 500px;position: relative;top: -80px;left: 350px;" src="images/part4/exemple_adc23.png" alt="">
+					</div>
+					<aside class="notes">
+						The Ariel Data Challenge 2023 is part of the effort to prepare for the Ariel space mission, scheduled to launch in the late 2020s. Ariel will observe the atmospheres of thousands of exoplanets providing an unprecedented amount of data. To maximize the science output from this data, the Ariel project is engaging the machine learning and data science communities to help develop novel approaches to atmospheric retrieval and data analysis.
+						simulated spectra, corresponding to intensity and noise for 52 bins in the infrared domain
+
+					</aside>
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<p>The Ariel Data Challenge 2023</p>
+					<p style="font-size: 30px;">Example of a result for planet 37 737</p>
+					<img style="height: 450px;" src="images/part4/distrib.png" alt="">
+					<aside class="notes">
+						the target parameter space consists of seven dimensions: the exoplanet’s radius, temperature, and the abundances of H2O, CO2, CO, CH4, and NH3.
+						The organizers provide a baseline solution for the Ariel Data Challenge. The idea is to improve this solution. We decided to form a group at IAP led by Virginie Batista to propose an answer to this challenge. We tested several hypotheses to improve the baseline model: preprocessing the data before inputting it into the model, adding a dense neural network layer after the CNN that takes the mean values of the distributions as input Illustration of one of our results for ADC 23, comparing the goal distributions (in green) and the output of our model (in red).
+					</aside>
+				</section>
+
+				<section data-auto-animate="" data-background-color="white">
+					<p>Dataset generation</p>
+					<aside class="notes">
+						However, one of the biggest challenges for machine learning is generating reliable training datasets. The better our synthetic datasets reflect the true diversity of exoplanet atmospheres, the more accurate our models will become. This is a key area for future research.
+					</aside>
+				</section>
+
+				<section data-auto-animate="" data-background-color="white">
+					<p>Dataset generation</p>
+					<img style="height: 400px;position: relative;left: 300px;" src="images/part4/planets_distribution.png" alt="">
+					<ul style="position: relative; left: -300px; top: -400px;width: 500px;">
+						<li class="fragment" style="font-size: smaller;">Dataset for machine learning project for Universities students </li>
+						<li style="font-size: smaller;" class="fragment">Collaboration with Orphée Faucoz (CNES) and Virginie Battista (IAP)  </li>
+						<li style="font-size: smaller;" class="fragment">Being able to determine the presence of water and/or clouds </li>
+						<li style="font-size: smaller;" class="fragment">The targets are small and cold planets </li>
+					</ul>
+					<aside class="notes">
+						In any machine learning application, especially in scientific fields like astronomy, it's crucial to deeply understand the dataset you are working with
+						much of the data used for training ML models will be simulated. Understanding the limitations of simulated data and how closely it mimics real observations is important for ensuring that models trained on synthetic datasets will generalize well to actual telescope data.
+						This database will be part of a national data challenge, open to all French engineering schools and universities, which should be launched at the start of the 2024 academic year. The objective here is to be able to train a model that can answer the following two questions: Does the atmosphere of this planet contain water? Does the atmosphere of this planet contain clouds?
+						We decided to take parameters from existing and discovered systems. We, therefore, downloaded parameters from the NASA exoplanet archive for planets with a radius less than 4 R⊕ and an equilibrium temperature less than 1000 K. This choice was made to target small, relatively cold planets
+					</aside>
+				</section>
+
+				<section data-visibility="hidden" data-auto-animate="" data-background-color="white">
+					<p>Dataset generation</p>
+					<img style="height: 1000px;clip-path: inset(0px 0px 0px 0px);" src="images/part4/tableau_ml.png" alt="">
+				</section>
+
+				<section data-visibility="hidden" data-auto-animate="" data-background-color="white">
+					<p>Dataset generation</p>
+					<img style="height: 1000px;clip-path: inset(300px 0px 0px 0px);position: relative;top: -300px;" src="images/part4/tableau_ml.png" alt="">
+				</section>
+
+				<section data-visibility="hidden" data-auto-animate="" data-background-color="white">
+					<p>Dataset generation</p>
+					<img style="height: 1000px;clip-path: inset(600px 0px 0px 0px);position: relative;top: -600px;" src="images/part4/tableau_ml.png" alt="">
+				</section>
+
+				<section data-auto-animate="" data-background-color="white">
+					<p>Dataset generation</p>
+					<img style="height: 400px;position: relative; left: 300px;" src="images/part4/check_database.png" alt="">
+					<ul style="position: relative; left: -270px; top: -350px;width: 550px;">
+						<li class="fragment" style="font-size: smaller;">TauREx forward models </li>
+						<li class="fragment" style="font-size: smaller;">Enhanced water and clouds features </li>
+						<li style="font-size: smaller;" class="fragment">Ariel-type noise added </li>
+						<li class="fragment" style="font-size: smaller;"> 36 model per set of parameters: up to  6 552 models </li>
+					</ul>
+					<p class="rotate-text" style="font-size: 24px; position: relative;top: -400px;left: -240px;">Absorption % </p>
+					<p style="font-size: 24px; position: relative;top: -350px;left: 330px;">Wavelength [µ] </p>
+					<aside class="notes">
+						At the end of the spectra generation, I checked if the calculations were correct. I used the same parameters to redo a simple TauREx forward model and compare the result with the synthetic spectrum.
+					</aside>
+				</section>
+
+				<section data-visibility="hidden" data-background-color="white">
+					<p>What's next?</p>
+				</section>
+
+				<section data-background-color="white">
+					<p style="position: relative;top: -50px;">Conclusions</p>
+					<ul style="position: relative; left: 0px; top: -0px;width: 800px;">
+						<li class="fragment" style="font-size: smaller;">Need to keep in mind 3D effects during retrieval interpretations, especialy for hotter planets</li>
+						
+						<li class="fragment" style="font-size: smaller;"> The Ariel Data Challenge engages the scientific community to develop machine learning techniques that will be applied to the Ariel mission’s data
+						</li>
+						<li style="font-size: smaller;" class="fragment"> Re-generating or simulating your own dataset allows for better control over the diversity and complexity of atmospheric conditions in your data
+						</li>
+					</ul>
+				</section>
+
+			</section>
+
+			<section data-background-color="white" data-auto-animate="">
+				<h2>Conclusions</h2>
+			</section>
+
+			<section data-background-color="white" data-auto-animate="">
+				<h2>Conclusions</h2>
+				<ul style="position: relative; left: -60px; top: -0px;width: 1050px;">
+					<li class="fragment" style="font-size: smaller;"> Assuming equilibrium chemistry provides a more accurate representation of atmospheric composition compared to using constant abundances </li>
+					<li class="fragment" style="font-size: smaller;"> Disequilibrium chemistry models are not distinguishable from
+						equilibrium models when applied to Hubble Space Telescope data
+					</li>
+					<li style="font-size: smaller;" class="fragment"> The higher-resolution data and greater wavelength coverage from the James Webb Space Telescope may validate the superiority of disequilibrium models
+					</li>
+					<li style="font-size: smaller;" class="fragment"> We successfully developed our datasets and initiated a machine learning model implementation
+					</li>
+
+				</ul>
+				<aside class="notes">
+					In this thesis, we conducted an extensive study on the atmospheres of hot Jupiters using transmission spectroscopy, focusing on retrieval analysis through Bayesian statistics to explore both equilibrium and disequilibrium chemistry. Our findings demonstrate that a
+				</aside>
+			</section>
+
+			<section data-background-color="white">
+				<h2>Perspectives</h2>
+				<ul style="position: relative; left: -60px; top: -0px;width: 1050px;">
+					<li class="fragment" style="font-size: smaller;"> Theoretical
+						and comparative analysis of disequilibrium against equilibrium models using JWST data </li>
+					<li class="fragment" style="font-size: smaller;"> Characterize the detectability of these disequilibrium features
+					</li>
+					<li style="font-size: smaller;" class="fragment"> Develop an extensive database encompassing various types of exoplanets and their atmospheres
+					</li>
+					<li style="font-size: smaller;" class="fragment"> Further exploration of machine learning techniques for exoplanet atmospheric retrieval, to prepare for the Ariel mission
+					</li>
+
+				</ul>
+				<aside class="notes">
+					To go further in the science developed in this manuscript, I propose the following perspectives for future research:
+					Looking ahead, the combination of new telescopes like JWST and advances in computational techniques, including machine learning, will dramatically enhance our ability to characterize smaller, potentially habitable planets. However, challenges such as the need for more sophisticated models and better training datasets remain. Solving these challenges will be crucial for interpreting the amount of data we will receive in the coming decades.
+				</aside>
+			</section>
+
+			<section data-background-color="white">
+				<ul style="position: relative; left:-150px; top: -30px;width: 1200px;">
+					<li class="fragment" style="font-size: 17px;"> A re-analysis of equilibrium chemistry in five hot Jupiters, <strong>Panek, E.</strong>, Beaulieu, J.-P.,
+						Drossart, P., Venot, O., Changeat, Q., Al-Refaie, A., Gressier, A., Astronomy & Astrophysics,
+						Volume 677, A51, 18 pp </li>
+					<li style="font-size: 17px;" class="fragment"> Adding disequilibrium chemistry in the analysis of hot Jupiters HST data, <strong>Panek, E.</strong>,
+						Bardet, D., Beaulieu, J.-P., Drossart, P., Venot, O., Changeat, Q., Al-Refaie, A., in prep.</li>
+					<li style="font-size: 17px;" class="fragment"> Transit spectroscopy : on the influence of stellar molecular lines in the retrieval of
+						exoplanets atmospheric absorption, Drossart, P., <strong>Panek, E.</strong>, Batista, V., Beaulieu, J.-P.,
+						Maillard, J.-P., 44th COSPAR Scientific Assembly. Held 16-24 July 2022, Volume 565, Abstract
+						B6.1-0007-22</li>
+					<li style="font-size: 17px;" class="fragment"> ARES VI: Are 1D retrieval models accurate enough to characterize exo-atmospheres
+						with transmission spectroscopy in the era of JWST and Ariel?, Jaziri, A. Y., Pluriel, W.,
+						Bocchieri, A., <strong>Panek, E.</strong>, Teinturier, L., Ivanova, A., Rektsini, N. E., Drossart, P., Beaulieu, J.-P.,
+						Falco, A., Leconte, J., Mugnai, L. V., Venot, O., Astronomy & Astrophysics, Volume 684, A25, 38pp</li>
+						
+					<li style="font-size: 17px;" class="fragment"> Data availability and requirements relevant for the Ariel space mission and other
+					exoplanet atmosphere applications, Chubb, K., Robert, S., Sousa-Silva, C., Yurchenko, S.,
+					Allard, N., Boudon, V., Buldyreva, J., Butel, B., Coustenis, A., Foltynowicz, A., Gordon, I.,
+					Hargreaves, R. J., Helling, C., Hill, C., Hrodmarsson, H. R., Karman, T., Lecoq-Molinos, H.,
+					Migliorini, A., Rey, M., Richard, C., Sadiek, I., Schmidt, F., Sokolov, A., Stefani, S., Tennyson,
+					J., Venot, O., Wright, S. O. M., Arenales-Lope, R., Barstow, J. K., Bocchieri, A., Carrasco, N.,
+						Dubey, D., Egorov, O., Garcia Munoz, A., Gharib-Nezhad, E., Gkouvelis, L., Grubel, G., Irwin, P.,
+						Knizek, A., Konings, T., Lewis, D. A., Lodge, M. G., Ma, S., Martins, Z., Molaverdikhani, K.,
+						Morello, G., Nikitin, A., <strong>Panek, E.</strong>, Rengel, M., Rinaldi, G., Skinner, J. W., Tinetti, G., van
+						Kampen, T., Yang, J., Zingales, T., accepted, RAS Techniques and Instruments  </li>
+
+					<li style="font-size: 17px;" class="fragment">Breaking degeneracies in exoplanetary parameters through self-consistent atmosphere-interior modelling, C. Wilkinson, B. Charnay, S. Mazevet, A.-M. Lagrange, A. Chomez, V. Squicciarini, <strong>E. Panek</strong>, J. Mazoyer, in revision, Astronomy & Astrophysics </li>
+					<li style="font-size: 17px;" class="fragment"> Exploration of 25 hot jupiters atmosphere using disequilibrium chemistry, Bardet, D.,
+					Changeat, Q., <strong>Panek, E.</strong>, Al-Refaie, A., Venot, O., in prep</li>
+					<li style="font-size: 17px;" class="fragment"> Machine learning review for exoplanets atmospheres in the context of Ariel, Yip, G., Batista, V., Drossart, P., Falco, A., Faucoz, O., Matchev, K., Matcheva, K., Pagliaro, L., <strong>Panek, E.</strong>, Zingales, T., in prep</li>
+						<li style="font-size: 17px;" class="fragment"> Impact of the consideration of stellar molecular lines in Bayesian inference atmospheric
+							analysis, Drossart, P., Chiavassa, A., <strong>Panek, E.</strong>, Broggi, M., Batista, V., Beaulieu, J.-P., Maillard,
+							J.-P., in prep</li>
+					
+
+				</ul>
+			</section>
+
+			<!-- Back-up slides -->
+			<section data-visibility="uncounted" data-background-color="white">
+				<h2>  Back-up slides </h2>
+			</section>
+
+			<section>
+
+				<section  data-visibility="uncounted" data-background-color="white">
+					<p> Details TauREx results</p>
+				</section>
+
+				<section data-visibility="uncounted" data-background-color="white">
+					<p>HAT-P-12b</p>
+					<img style="height: 600px;position: relative;top: -50px;" src="images/part4/hp12_output_posteriors.png" alt="">
+				</section>
+
+				<section data-visibility="uncounted" data-background-color="white">
+					<p>HD 209458 b</p>
+					<img style="height: 600px;position: relative;top: -50px;" src="images/part4/hd209_output_posteriors.png" alt="">
+				</section>
+
+				<section data-visibility="uncounted" data-background-color="white">
+					<p>WASP-6b</p>
+					<img style="height: 600px;position: relative;top: -50px;" src="images/part4/w6_output_posteriors.png" alt="">
+				</section>
+
+				<section data-visibility="uncounted" data-background-color="white">
+					<p>WASP-17b</p>
+					<img style="height: 600px;position: relative;top: -50px;" src="images/part4/w17_output_posteriors.png" alt="">
+				</section>
+
+			</section>
+
+			<section>
+
+				<section  data-visibility="hidden" data-background-color="white">
+					<p> Stellar effects</p>
+				</section>
+
+			</section>
+
+			</div>
+			<footer class="slide-footer">
+				<p> Emilie Panek &nbsp;&nbsp; | &nbsp;&nbsp; PhD defense  &nbsp;&nbsp; | &nbsp;&nbsp; 13/09/2024</p>
+			  </footer>
+		</div>
+
+		
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+			
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				slideNumber: true,
+				slideNumber: 'c/t',  // 'c' for current slide, 't' for total slides
+  				showSlideNumber: 'all',
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
+			});
+
+			// Footer hide/show logic
+  			Reveal.on('slidechanged', function(event) {
+    			var footer = document.querySelector('.footer');
+    
+    			if (event.currentSlide.classList.contains('no-footer')) {
+      			footer.style.display = 'none';
+				} else {
+      			footer.style.display = 'block';
+    			}
+  			});
+		</script>
+	</body>
+</html>
