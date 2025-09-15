@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+  		<style>
+    		.reveal .progress {
+       		height: 10px;  /* Adjust this value */
+			color: #b11605;
+			}
+
+    		.reveal .progress .progress-bar {
+        	height: 100%;  /* Adjust as necessary */
+			color: #b11605;
+    		}	
+  		</style>
+
+		<style>
+   			.slide-footer {
+      		position: fixed;
+      		bottom: 10px;
+      		left: 0;
+      		width: 99%;
+			height: 5%;
+      		text-align: center;
+      		padding: 12px;
+      		background-color: rgba(0, 0, 0, 0.4);
+      		color: white;
+      		font-size: 18px;
+      		z-index: 100;
+      		pointer-events: none;
+			clip-path: inset(25px 95px 0px 0px);
+    		}
+			
+  		</style>
+
+			
+			
+		<style>
+			/* Adjusts the space between bullet points */
+			ul li {
+				margin-bottom: 15px; /* Increase the space between items */
+			}
+		</style>
+		
+		<style>
+			.reveal .slide-number {
+    		font-size: 20px;  /* Increase the number as desired */
+    		color: #fff;  /* Ensure it's visible, change color if necessary */
+    		background-color: rgba(0, 0, 0, 0.6);  /* Optional: Add a background for visibility */
+    		padding: 5px 10px;
+    		border-radius: 5px;  /* Optional: Rounded corners */
+			}
+
+			.reveal .slide-number {
+    		bottom: 10px;
+    		right: 5px;
+    		position: fixed;  /* Fixes it in the corner */
+			}
+		</style>
+
+		<style>
+			/* Targeting the presenter notes in presenter view */
+			.reveal .notes {
+			  font-size: 10px !important; /* Change the size as per your needs */
+			}
+  		</style>
+
+		<style>
+			/* Custom styling for the left and right arrows */
+			.reveal .navigate-left, 
+			.reveal .navigate-right,
+			.reveal .navigate-up,
+			.reveal .navigate-down {
+			    width: 50px;  /* Set custom size */
+			    height: 50px;  /* Set custom size */
+			    background-color: rgba(0, 0, 0, 0.5);  /* Add background for better visibility */
+			    color: white;  /* Change arrow color */
+			    border-radius: 50%;  /* Make arrows circular */
+			    border: 2px solid white;  /* Add border for more definition */
+			}
+
+			/* Optional: Hover effect */
+			.reveal .navigate-left:hover, 
+			.reveal .navigate-right:hover,
+			.reveal .navigate-up:hover,
+			.reveal .navigate-down:hover {
+			    background-color: rgba(255, 255, 255, 0.8);  /* Lighter background on hover */
+			    color: black;  /* Invert color on hover */
+			}
+		</style>
+
+		<style>
+    		/* Rotate the paragraph 90 degrees clockwise */
+    		.rotate-text {
+    		  transform: rotate(270deg);
+    		  transform-origin: left top; /* Adjust as needed */
+    		  display: inline-block; /* Necessary for the rotation to work correctly */
+    		}
+  		</style>
+		
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class="no-footer" data-background-color="white">
+					<div style="border-radius: 15px 80px; background: #f9f1ee; text-align: center">
+						<p style="font-size: 59px;">Detecting unusual chemical signatures <br> using autoencoder-based anomaly detection</p>
+						
+					</div>
+					<div style="padding: 10px"></div>
+					<div style="border-radius: 15px; background: #efe0dd; text-align: center">
+						<p><b>Emilie Panek</b></p>
+						<p style="font-size: 22px;">09/08/2025</p>
+						<p style="font-size:50%;">working with <b>Alexander Roman, Katia Matcheva and Konstantin Matchev</b>
+						</p>
+					</div>
+					<div style="position:relative; top:-25px;left: 30px;">
+						<img style="position:relative; left:-30px;top: 30px;"  height="150px" src="images/Page8_Capstone-A_Logos-791x1024-1.png">
+					</div>
+					<aside class="notes">
+						Hello everyone, My name is Emilie Panek and I'm really happy to present my work here today. I'd like to thank the organizers for this opportunity. I'm currently a postdoc at the University of Alabama in the US and I'm gonna talk about a way of detecting unusual chemical signatures in transmission spectroscopy data using machine learning, specifically autoencoder coupled with anomaly detection. I'm working with Alex Roman, Katia Matcheva and Konstantin Matchev on this project.
+					</aside>
+				</section>
+
+
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 200px;left: -00px;">The challenge of big data in exoplanet science</h2>
+
+					<div style="position:relative; top:0px;left: 30px;">
+						<img style="position:relative; left:-30px;top: 205px;left: -400px;"  height="450px" src="images/confirmed1.png">
+					</div>
+					<div style="font-size: 30px;position: relative;top: -200px;right: -50px;">
+						<img style="position:relative; left:-30px;top: -100px;left: 340px;"  height="450px" src="images/confimed2.png">
+					</div>
+					<aside class="notes">
+						You are surely really familiar with this kind of plots on the discovered exoplanets. The left-hand plot on this slide shows the cumulative number of exoplanet detections over time. You can clearly see the rapid rise thanks to the Kepler mission, with still an ongoing acceleration of discoveries from ground-based and space-based surveys like TESS. This exponential growth means that atmospheric science is no longer limited to one or two exceptional cases — we’re now able to make large-scale atmospheric surveys.
+
+						The second figure shows mass versus orbital separation for detected planets, color-coded by detection method. This illustrates the diversity of exoplanets we’ve found: hot Jupiters very close to their stars, but also colder gas giants or super-Earths. The range of planetary types makes uniform atmospheric analysis and population study both valuable and very complex.
+
+						If we’re talking about spectroscopy JWST, is expected to observe high-quality spectra for up to 500 planets, and then we’ll have the Ariel telescope, launching in 2029, that will observe over 1,000 transiting exoplanets. All of that makes a lot of data
+
+					</aside>
+					
+				</section>
+
+				<section data-background-color="white">
+					<p style="font-size: 45px; text-align: center;position: relative;top: 0px;left: 0px;">Roman et al. in prep.</p>
+					<div style="position:relative; top:0px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -50px;left: 0px;"  height="500px" src="images/Picture2.png">
+					</div>
+					<aside class="notes">
+						That’s why machine learning is important 
+						In exoplanet spectroscopy, where each observation is a 50+ dimensional spectrum, ML offers a way to quickly identify regularities, clusters, and outliers.
+						Everything that I will present you from now on is detailed in this paper, that we just recently submitted.
+
+					</aside>
+				</section>
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 200px;left: -300px;">Database</h2>
+					<ul style="font-size: 30px;position: relative;top: 300px;right: 350px;">
+						<li>5900 objects from Ariel MCS</li>
+						<li>Use TauREx to recalculate the noiseless spectra</li>
+						<li>simulated instrumental noise using a <br> standard Gaussian distribution</li>
+						<li>final database of 69,099 spectra</li>
+					</ul>
+					<div style="position:relative; top:-250px;left: 100px;">
+						<img style="position:relative; left:-30px;top: 100px;left: 250px;"  height="500px" src="images/Picture4.png">
+					</div>
+					<p style="font-size: 20px;position: relative;top: -200px;right: -360px;" >Size of the considered planets versus the mass of their host star. <br>Figure 1 from Changeat & Yip 2022</p>
+					<p style="font-size: 23px;position: relative;top: -650px;right: 450px;" >Same modifications than Forestano et al. 2023. </p>
+					<aside class="notes">
+						We're basing our database on the ABC Atmospheric Big challenge database, that was the database generated for the ariel data challenge 2022. It uses a diverse list of 5900 exoplanets, from the Ariel mission candidate sample. This target list is then filtered to remove planets smaller than 1.5R⊕. We specifically took a modified version of this database presented in Forestano et al 2023 where they  used the code TauREx to recalculate the noiseless spectra based on the same stellar and planetary parameters. They simulated instrumental noise using a standard Gaussian distribution. They choose then different noise levels of 10, 20, 30 and 50 ppm.  they get a final database of 69,099 spectra. 
+					</aside>
+
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 130px;left: -0px;">Normal vs Anomalous spectra</h2>
+
+					<ul style="font-size: 30px;position: relative;top: 150px;right: -0px;">
+						<li>Two populations: normal and anomalous spectra</li>
+						<li>Define spectra with relative abundance of CO2 exceeding 5% as anomalous</li>
+					</ul>
+					
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -100px;left: -50px;"  width="1500px" src="images/Picture7.png">
+					</div>
+					<aside class="notes">
+						We still need to make some adjustments for our own study. To simulate a novelty detection scenario, we need what we consider a normal population and an anomalous population. We artificially define carbon dioxide (CO2) rich atmospheres as anomalous. 
+					</aside>
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 100px;left: -0px;">Normal vs Anomalous spectra</h2>
+					
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -100px;left: -50px;"  width="1500px" src="images/Picture8.png">
+					</div>
+					<aside class="notes">
+						Alright now we need to understand what we are doing with these two population, first we are using and autoencoder.
+					</aside>
+				</section>
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 50px;left: -0px;">Autoencoder architecture</h2>
+					
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -150px;left: 300px;"  height="350px" src="images/Picture9.png">
+					</div>	
+					<ul style="font-size: 40px;position: relative;top: -220px;right: 300px;">
+						<li>Encoder compresses the input</li>
+						<li>Decoder reconstructs the input</li>
+						<li>from 52 dimensions to 8 dimensions</li>
+					</ul>		
+					<aside class="notes">
+						An autoencoder is a type of neural network that’s trained to reproduce its own input. It is forced to first compress the input into a much smaller space — called the latent space — and then reconstruct the original data from that compressed version. So it learns a compact representation of the data that still holds all the important information. 
+
+						In our case, we’re working with exoplanet transmission spectra, which are essentially vectors of 52 values — one for each wavelength bin. The encoder part of the autoencoder takes those 52 numbers and compresses them down to just 8 values. That’s our latent space. Then, the decoder takes those 8 values and tries to reconstruct the original 52-point spectrum.
+
+					</aside>
+				</section>
+
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 50px;left: -0px;">Reconstruction loss</h2>
+					
+					<div style="position:relative; top:200px;left: -330px;">
+						<img style="position:relative; left:-30px;top: -150px;left: 300px;"  height="350px" src="images/Picture10.png">
+					</div>	
+					<ul style="font-size: 30px;position: relative;top: 50px;right: 00px;" >
+						<li>If a spectrum is familiar, the autoencoder will reconstruct it well</li>
+						<li>If it’s unfamiliar or strange, the reconstruction will be poor</li>
+					</ul>		
+					<aside class="notes">
+						The autoencoder is trained only on “normal” spectra — those low carbon dioxide. So it learns how to represent these normal spectra very efficiently in latent space. But when we feed the model a spectrum that’s unusual — for example, one with a very high CO₂ concentration — the encoder tries to compress it the same way, but it doesn’t know how.
+
+						And this is where the concept of reconstruction loss comes in. Reconstruction loss is just a way of measuring how well the autoencoder did its job. It compares the original input to the reconstructed output and calculates how different they are. 
+						You don’t need to tell the model what an anomaly looks like — you just train it on normal data and let it learn the pattern. Then, if it sees something that doesn’t fit that pattern, it fails to reconstruct it, and the loss goes up. This makes reconstruction loss a really effective and simple test for detecting unusual exoplanet spectra — especially ones with unexpected chemical signatures.
+
+					</aside>
+				</section>
+
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 50px;left: -0px;">Anomaly detection</h2>
+					
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -150px;left: 300px;"  height="350px" src="images/svm.png">
+					</div>	
+					<ul style="font-size: 40px;position: relative;top: -300px;right: 500px;">
+						<li>1-Class SVM</li>
+					</ul>	
+					<aside class="notes">
+						1-class SVM
+						The idea is you give the model a bunch of examples of normal spectra,  it looks at where those points are in space wheter in 8 or 52 dimensisons, and tries to draw a flexible boundary around them. It’s like saying: “All these points live in this region — this is my definition of normal.” Then, when you give it a new spectrum, it checks to see if it lands inside that boundary — which means it looks familiar — or outside the boundary, which suggests it’s unusual.
+						One of the nice things about One-Class SVM is the boundary it draws can curve and bend, depending on the structure of the data. That’s important for our spectra, because the relationships between features can be nonlinear and complex.
+					</aside>	
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 50px;left: -0px;">Anomaly detection</h2>
+					
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -150px;left: 300px;"  height="350px" src="images/kmeans.png">
+					</div>	
+					<ul style="font-size: 40px;position: relative;top: -300px;right: 500px;">
+						<li>1-Class SVM</li>
+						<li>K-means</li>
+					</ul>	
+					<aside class="notes">
+						K-means
+						The basic idea is this: you tell it how many clusters you want — let’s say 10 — and it tries to find the best way to divide the data into 10 groups. It does this by placing 10 centroids and assigning each data point to the closest one. Then it moves the centers a little, reassigns the points, and repeats the process until everything settles.
+						Well, once the clusters are defined, we can use the distance to the nearest cluster center as a kind of anomaly score. If a spectrum lands close to a center, that means it’s similar to a bunch of other spectra — it’s probably normal. But if it lands far away from all the cluster centers, that suggests it’s different — maybe an outlier.
+						We’re really looking at distances here.
+						This is really fast, Once you’ve found your cluster centers, you can classify new data points very quickly it’s just computing e a few distances.
+
+					</aside>	
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 100px;left: -0px;">Anomaly detection</h2>
+					
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -150px;left: 300px;"  height="450px" src="images/lof.png">
+					</div>	
+					<ul style="font-size: 40px;position: relative;top: -350px;right: 386px;">
+						<li>1-Class SVM</li>
+						<li>K-means</li>
+						<li>Local Outlier Factor (LOF)</li>
+					</ul>		
+					<aside class="notes">
+						LOF 
+						The last method we tested is called Local Outlier Factor, or LOF. here instead of looking at the overall structure of the dataset — like boundaries or clusters — LOF looks very closely at the local neighborhood of each data point.
+						The idea is: normal data points usually live in areas where there are lots of other similar points nearby. That means they’re surrounded by neighbors, and those neighbors are pretty close. An anomaly, on the other hand, is more likely to be isolated — it lives in a part of the space where the density of points is low.
+						So what LOF does is it measures how “dense” the area around a point is, and then it compares that to the density of its neighbors. If a point is sitting in a much sparser area than the points around it, then it’s probably an outlier. it’s not just about being far from everything, it’s about being different compared to your immediate surroundings.
+						This is especially useful when the dataset has regions of different densities — like tight clusters in some areas and loose clouds in others. Other methods like One-Class SVM or K-Means might struggle in those cases, because they tend to assume the data has a more uniform structure. But LOF can adapt to these local variations.
+					</aside>
+				</section>
+				
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 100px;left: -0px;">Results - Histograms</h2>
+					
+					<div style="position:relative; top:200px;left: -330px;">
+						<img style="position:relative; left:-30px;top: -120px;left: 320px;"  height="600px" src="images/histo_spectrals.png">
+					</div>		
+					<p style="font-size: 23px;position: relative;top: 20px;right: 00px;" >Histograms in spectral space</p>
+					<aside class="notes">
+						This slide shows the results of each method applied directly in spectral space, meaning the original 52-dimensional spectra, without compression by the autoencoder.
+						What you’re seeing here are histograms of the anomaly scores assigned by each method. For each histogram, the grey bars represent the scores for spectra we labeled as normal, and the red bars are the spectra we labeled as anomalous — in this case, the high-CO₂ ones.
+						So what we want to see is a good separation between the two groups. Ideally, the red bars should cluster at one end showing high anomaly scores, while the grey bars cluster at the other. But as you can see here, in spectral space, the separation isn’t so great, especially at high noise. The distributions overlap quite a lot, that means those methods are having a hard time telling the difference between normal and anomalous spectra when they’re working directly with the raw data.
+					</aside>
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 100px;left: -0px;">Results - Histograms</h2>
+					
+					<div style="position:relative; top:200px;left: -330px;">
+						<img style="position:relative; left:-30px;top: -120px;left: 320px;"  height="600px" src="images/histo_latent.png">
+					</div>		
+					<p style="font-size: 23px;position: relative;top: 20px;right: 00px;" >Histograms in latent space</p>
+					<aside class="notes">
+						Now we’re looking at the same anomaly detection methods, but this time applied in the latent space.
+						Again, each panel shows a histogram of the anomaly scores.
+						And this time, the difference is clearer. You can immediately see that the distributions are much better separated across all the methods. There’s a clean gap between the two populations in most cases, which means the model is doing a much better job identifying the unusual spectra.
+
+						So this really shows the power of using a compressed, learned representation because we didn’t change the methods — we only changed the space they were operating in. By removing noise and redundancy, the autoencoder creates a space where anomaly detection becomes much more reliable.
+					</aside>
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 50px;left: -0px;">Results - ROC curves</h2>
+
+					<ul style="font-size: 30px;position: relative;top: 50px;right: 350px;">
+						<li>True positive rate vs false positive rate</li>
+						<li>Diagonal = no better than random guessing</li>
+					</ul>
+
+					<div style="position:relative; top:200px;left: -330px;">
+						<img style="position:relative; left:-30px;top: -150px;left: 300px;"  height="350px" src="images/roc1.png">
+					</div>
+					<aside class="notes">
+						Each curve shows the trade-off between the true positive rate — meaning how many anomalies we correctly detect — and the false positive rate, which is how many normal spectra we mistakenly classify as anomalies.
+						The closer the curve is to the top-left corner, the better the performance. A perfect classifier would reach all the way up to the top-left. A random guess would just follow the diagonal line from bottom-left to top-right.
+
+					</aside>
+				</section>
+
+				<section data-background-color="white"
+				data-auto-animate="">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 407px;left: -0px;">Results - ROC curves</h2>
+
+					<ul style="font-size: 30px;position: relative;top: 407px;right: 350px;">
+						<li>True positive rate vs false positive rate</li>
+						<li>Diagonal = no better than random guessing</li>
+					</ul>
+
+					<div style="position:relative; top:300px;left: -330px;">
+						<img style="position:relative; left:-30px;top: 150px;left: -300px;"  height="150px" src="images/roc1.png">
+					</div>
+
+					<div style="position:relative; top:150px;left: -430px;">
+						<img style="position:relative; left:-30px;top: 61px;left: 100px;"  height="400px" src="images/roc2.png">
+					</div>
+
+					<div style="position:relative; top:80px;left: -430px;">
+						<img style="position:relative; left:-30px;top: -325px;left: 500px;"  height="400px" src="images/roc3.png">
+					</div>
+
+					<div style="position:relative; top:200px;left: -330px;">
+						<img style="position:relative; left:-30px;top: -900px;left: 800px;"  height="400px" src="images/roc4.png">
+					</div>
+				</section>
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 250px;left: -0px;">Comparison of methods</h2>
+					
+					<div style="position:relative; top:200px;left: -300px;">
+						<img style="position:relative; left:-30px;top: 150px;left: -70px;"  height="250px" src="images/comp1.png">
+					</div>	
+					
+					<div style="position:relative; top:200px;left: -300px;">
+						<img style="position:relative;top: -250px;left: 600px;"  height="450px" src="images/comp2.png">
+					</div>	
+					<aside class="notes">
+						Here we’re comparing the overall performance of each method, in both spectral and latent space, using a single number: the Area Under the ROC Curve, or AUC.
+						The higher the AUC, the better the model is at distinguishing between normal and anomalous spectra. A score of 1 means perfect classification; 0.5 means the model is just guessing.
+						What you can see here is that all the methods perform better in latent space than they do in spectral space
+
+					</aside>
+				</section>
+
+				<section data-background-color="white">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: -10px;left: -0px;">Conclusions</h2>
+					
+
+					<ul style="font-size: 45px;position: relative;top: 30px;right: 00px;" >
+						<li> Anomaly detection using autoencoders is most effective in the latent space</li>
+						<li>K-means clustering gives the best performance</li>
+						<li>The method is robust to noise, up to a realistic level expected for space-based observations around 30 ppm</li>
+					</ul>		
+					<aside class="notes">
+						In this study, we tested four main anomaly detection methods: reconstruction loss, 1-class SVM, K-means clustering, and Local Outlier Factor. Each method was tested in both spectral space and latent space. The goal was to see how well they could tell the difference between normal and anomalous spectra. Our main result is that anomaly detection using autoencoders is most effective in the latent space. This is true across different detection methods and noise levels. The best performance overall was achieved by the K-means method in latent space. This method gives really good AUC scores for all noise levels, and it was very stable: giving good performance even when noise was increased. We also showed that the method is robust to noise, up to a realistic level expected for space-based observations around 30 ppm. Even at high noise level of 50 ppm, detection remains possible, especially when using the latent space.
+					</aside>
+				</section>
+
+				<section data-background-color="white" class="no-footer" data-visibility="hidden">
+					<h2 style="font-size: 45px; text-align: center;position: relative;top: 20px;left: -0px;">Future directions?</h2>
+					<div style="position:relative; top:0px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -20px;left: 0px;"  height="600px" src="images/future.png">
+					</div>
+				</section>
+
+			</div>
+			<footer class="slide-footer">
+				<p> Emilie Panek &nbsp;&nbsp; | &nbsp;&nbsp; epanek1@ua.edu  &nbsp;&nbsp; | &nbsp;&nbsp; 09/08/2025</p>
+			  </footer>
+		</div>
+
+		
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+
+
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				slideNumber: true,
+				slideNumber: 'c/t',  // 'c' for current slide, 't' for total slides
+  				showSlideNumber: 'all',
+				controls: false, // Hide the navigation arrows
+				// Fix dimensions
+				width: 1000,       // your screen width
+				height: 1500,      // your screen height
+				margin: 0.05,      // optional: 5% margin around content
+				minScale: 1.0,     // don't shrink below original size
+				maxScale: 1.0,     // don't grow beyond original size
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
+			});
+
+			// Footer hide/show logic
+  			Reveal.on('slidechanged', function(event) {
+    			var footer = document.querySelector('.footer');
+    
+    			if (event.currentSlide.classList.contains('no-footer')) {
+      			footer.style.display = 'none';
+				} else {
+      			footer.style.display = 'block';
+    			}
+  			});
+		</script>
+	</body>
+</html>
