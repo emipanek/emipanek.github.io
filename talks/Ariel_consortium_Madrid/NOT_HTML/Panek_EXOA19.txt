@@ -1,0 +1,94 @@
+Hello everyone, My name is Emilie Panek and I'm really happy to present my work here today. I'd like to thank the organizers for this opportunity. I'm currently a postdoc at the University of Alabama in the US and I'm gonna talk about a way of detecting unusual chemical signatures in transmission spectroscopy data using machine learning, specifically autoencoder coupled with anomaly detection. I'm working with Alex Roman, Katia Matcheva and Konstantin Matchev on this project. 
+
+You are surely really familiar with this kind of plots on the discovered exoplanets. The left-hand plot on this slide shows the cumulative number of exoplanet detections over time. You can clearly see the rapid rise thanks to the Kepler mission, with still an ongoing acceleration of discoveries from ground-based and space-based surveys like TESS. This exponential growth means that atmospheric science is no longer limited to one or two exceptional cases — we’re now able to make large-scale atmospheric surveys.
+
+The second figure shows mass versus orbital separation for detected planets, color-coded by detection method. This illustrates the diversity of exoplanets we’ve found: hot Jupiters very close to their stars, but also colder gas giants or super-Earths. The range of planetary types makes uniform atmospheric analysis and population study both valuable and very complex.
+
+If we’re talking about spectroscopy JWST, is expected to observe high-quality spectra for up to 500 planets, and then we’ll have the Ariel telescope, launching in 2029, that will observe over 1,000 transiting exoplanets. All of that makes a lot of data
+
+That’s why machine learning is important 
+In exoplanet spectroscopy, where each observation is a 50+ dimensional spectrum, ML offers a way to quickly identify regularities, clusters, and outliers.
+Everything that I will present you from now on is detailed in this paper, that we just recently submitted.
+
+We're basing our database on the ABC Atmospheric Big challenge database, that was the database generated for the ariel data challenge 2022. It uses a diverse list of 5900 exoplanets, from the Ariel mission candidate sample. This target list is then filtered to remove planets smaller than 1.5R⊕. We specifically took a modified version of this database presented in Forestano et al 2023 where they  used TauREx to recalculate the noiseless spectra based on the same stellar and planetary parameters. They simulated instrumental noise using a standard Gaussian distribution. They choose then different noise levels of 10, 20, 30 and 50 ppm.  they get a final database of 69,099 spectra. 
+
+We still need to make some adjustments for our own study. To simulate a novelty detection scenario, we need what we consider a normal population and an anomalous population. We artificially define carbon dioxide (CO2) rich atmospheres as anomalous. 
+
+Alright now we need to understand what we are doing with these two population, first we are using and autoencoder.
+
+An autoencoder is a type of neural network that’s trained to reproduce its own input. It is forced to first compress the input into a much smaller space — called the latent space — and then reconstruct the original data from that compressed version. So it learns a compact representation of the data that still holds all the important information. 
+
+In our case, we’re working with exoplanet transmission spectra, which are essentially vectors of 52 values — one for each wavelength bin. The encoder part of the autoencoder takes those 52 numbers and compresses them down to just 8 values. That’s our latent space. Then, the decoder takes those 8 values and tries to reconstruct the original 52-point spectrum.
+
+
+The autoencoder is trained only on “normal” spectra — those low carbon dioxide. So it learns how to represent these normal spectra very efficiently in latent space. But when we feed the model a spectrum that’s unusual — for example, one with a very high CO₂ concentration — the encoder tries to compress it the same way, but it doesn’t know how.
+
+And this is where the concept of reconstruction loss comes in. Reconstruction loss is just a way of measuring how well the autoencoder did its job. It compares the original input to the reconstructed output and calculates how different they are. 
+You don’t need to tell the model what an anomaly looks like — you just train it on normal data and let it learn the pattern. Then, if it sees something that doesn’t fit that pattern, it fails to reconstruct it, and the loss goes up. This makes reconstruction loss a really effective and simple test for detecting unusual exoplanet spectra — especially ones with unexpected chemical signatures.
+
+We tried a few additional methods for anomaly detection, and the first one we looked at is called One-Class Support Vector Machine, or 1-Class SVM for short.
+
+The idea is you give the model a bunch of examples of normal spectra,  it looks at where those points are in space wheter in 8 or 52 dimensisons, and tries to draw a flexible boundary around them. It’s like saying: “All these points live in this region — this is my definition of normal.” Then, when you give it a new spectrum, it checks to see if it lands inside that boundary — which means it looks familiar — or outside the boundary, which suggests it’s unusual.
+One of the nice things about One-Class SVM is the boundary it draws can curve and bend, depending on the structure of the data. That’s important for our spectra, because the relationships between features can be nonlinear and complex.
+
+The basic idea is this: you tell it how many clusters you want — let’s say 10 — and it tries to find the best way to divide the data into 10 groups. It does this by placing 10 centroids and assigning each data point to the closest one. Then it moves the centers a little, reassigns the points, and repeats the process until everything settles.
+Well, once the clusters are defined, we can use the distance to the nearest cluster center as a kind of anomaly score. If a spectrum lands close to a center, that means it’s similar to a bunch of other spectra — it’s probably normal. But if it lands far away from all the cluster centers, that suggests it’s different — maybe an outlier.
+We’re really looking at distances here.
+This is really fast, Once you’ve found your cluster centers, you can classify new data points very quickly it’s just computing e a few distances.
+
+
+The last method we tested is called Local Outlier Factor, or LOF. here instead of looking at the overall structure of the dataset — like boundaries or clusters — LOF looks very closely at the local neighborhood of each data point.
+The idea is: normal data points usually live in areas where there are lots of other similar points nearby. That means they’re surrounded by neighbors, and those neighbors are pretty close. An anomaly, on the other hand, is more likely to be isolated — it lives in a part of the space where the density of points is low.
+So what LOF does is it measures how “dense” the area around a point is, and then it compares that to the density of its neighbors. If a point is sitting in a much sparser area than the points around it, then it’s probably an outlier. it’s not just about being far from everything, it’s about being different compared to your immediate surroundings.
+This is especially useful when the dataset has regions of different densities — like tight clusters in some areas and loose clouds in others. Other methods like One-Class SVM or K-Means might struggle in those cases, because they tend to assume the data has a more uniform structure. But LOF can adapt to these local variations.
+
+
+This slide shows the results of each method applied directly in spectral space, meaning the original 52-dimensional spectra, without compression by the autoencoder.
+What you’re seeing here are histograms of the anomaly scores assigned by each method. For each histogram, the grey bars represent the scores for spectra we labeled as normal, and the red bars are the spectra we labeled as anomalous — in this case, the high-CO₂ ones.
+So what we want to see is a good separation between the two groups. Ideally, the red bars should cluster at one end showing high anomaly scores, while the grey bars cluster at the other. But as you can see here, in spectral space, the separation isn’t so great, especially at high noise. The distributions overlap quite a lot, that means those methods are having a hard time telling the difference between normal and anomalous spectra when they’re working directly with the raw data.
+
+Now we’re looking at the same anomaly detection methods, but this time applied in the latent space.
+Again, each panel shows a histogram of the anomaly scores.
+And this time, the difference is clearer. You can immediately see that the distributions are much better separated across all the methods. There’s a clean gap between the two populations in most cases, which means the model is doing a much better job identifying the unusual spectra.
+
+So this really shows the power of using a compressed, learned representation because we didn’t change the methods — we only changed the space they were operating in. By removing noise and redundancy, the autoencoder creates a space where anomaly detection becomes much more reliable.
+
+Each curve shows the trade-off between the true positive rate — meaning how many anomalies we correctly detect — and the false positive rate, which is how many normal spectra we mistakenly classify as anomalies.
+The closer the curve is to the top-left corner, the better the performance. A perfect classifier would reach all the way up to the top-left. A random guess would just follow the diagonal line from bottom-left to top-right.
+
+Here we’re comparing the overall performance of each method, in both spectral and latent space, using a single number: the Area Under the ROC Curve, or AUC.
+The higher the AUC, the better the model is at distinguishing between normal and anomalous spectra. A score of 1 means perfect classification; 0.5 means the model is just guessing.
+What you can see here is that all the methods perform better in latent space than they do in spectral space — and in some cases, the improvement is dramatic.
+The blue curves
+represent the spectral space and the orange curves represent the latent space. In every case, the orange curve is higher
+than the blue, meaning a higher AUC value and a better performance. 
+
+In this study, we tested four main anomaly detection methods: reconstruction loss, 1-class SVM, K-means clustering,
+and Local Outlier Factor. Each method was tested in both spectral space and latent space. The goal was to see how
+well they could tell the difference between normal and anomalous spectra. The best performance overall was achieved
+by the K-means method in latent space. This method
+gives really good AUC scores for all noise levels, and it was very stable: giving good performance even when noise was increased. The 1-class SVM also performed well, but with a little bit more variation depending on the noise
+level. Its performance was a bit less stable than K-means but still strong, with high AUC values up to 30 ppm.
+The reconstruction loss method was effective at low noise. But when noise increased, its performance dropped faster.
+This method is simple to use and gives fast results, but is more sensitive to noise. The LOF method was the least
+stable method. It worked well at low noise levels (10 and 20 ppm), but its AUC dropped at higher noise. In spectral
+space at 50 ppm, LOF gave the worst results with AUC below 0.7. 
+
+
+Our main result is that anomaly detection using autoencoders is most effective in the latent space. This is true across
+different detection methods and noise levels. Among the tested approaches, k-means clustering applied to the latent
+space gives the best performance for separating normal and anomalous spectra. We also showed that the method is
+robust to noise, up to a realistic level expected for space-based observations around 30 ppm. Even at high noise level
+of 50 ppm, detection remains possible, especially when using the latent space.
+
+Alright, so before wrapping up, I want to say a few words about what comes next — because this is really just the beginning of what we can do with this approach.
+First, one of the things we’re really excited about is the idea of improving the model using quantum machine learning kernels. Right now, we’re using fairly classical anomaly detection methods like K-Means or One-Class SVM, but there’s a lot of recent work showing that if you replace the kernel — that is, the function that defines similarity between points — with one built using quantum circuits, you can potentially capture much more subtle structure in the data.
+In very high-dimensional spaces like spectra or latent vectors, these quantum kernels might help separate normal and anomalous populations in ways that classical models can't. So this is something we’re actively exploring — whether quantum methods can give us an edge in this kind of high-complexity task.
+
+
+Among the many ML approaches available, unsupervised learning is especially powerful in this context. In our specific case, We usually don’t know in advance what an “anomalous” spectrum should look like — it might reflect a rare composition, an exotic chemical process, or simply something we haven’t predicted yet. So instead of training a model to recognize specific known classes, we train it only on normal data, and ask it to learn the "typical" structure of spectra. Then, anything that significantly deviates from this learned pattern is flagged as an outlier — a possible candidate for interesting or exotic chemistry.
+
+
+
+
+
