@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+  		<style>
+    		.reveal .progress {
+       		height: 10px;  /* Adjust this value */
+			color: #b11605;
+			}
+
+    		.reveal .progress .progress-bar {
+        	height: 100%;  /* Adjust as necessary */
+			color: #b11605;
+    		}	
+  		</style>
+
+		<style>
+   			.slide-footer {
+      		position: fixed;
+      		bottom: 10px;
+      		left: 0;
+      		width: 99%;
+			height: 4%;
+      		text-align: center;
+      		padding: 12px;
+      		background-color: rgba(0, 0, 0, 0.4);
+      		color: white;
+      		font-size: 15px;
+      		z-index: 100;
+      		pointer-events: none;
+			clip-path: inset(30px 0px 0px 0px);
+    		}
+			
+  		</style>
+
+			
+			
+		<style>
+			/* Adjusts the space between bullet points */
+			ul li {
+				margin-bottom: 15px; /* Increase the space between items */
+			}
+		</style>
+		
+		<style>
+			.reveal .slide-number {
+    		font-size: 20px;  /* Increase the number as desired */
+    		color: #fff;  /* Ensure it's visible, change color if necessary */
+    		background-color: rgba(0, 0, 0, 0.6);  /* Optional: Add a background for visibility */
+    		padding: 5px 10px;
+    		border-radius: 5px;  /* Optional: Rounded corners */
+			}
+
+			.reveal .slide-number {
+    		bottom: 10px;
+    		right: 5px;
+    		position: fixed;  /* Fixes it in the corner */
+			}
+		</style>
+
+		<style>
+			/* Targeting the presenter notes in presenter view */
+			.reveal .notes {
+			  font-size: 10px !important; /* Change the size as per your needs */
+			}
+  		</style>
+
+		<style>
+			/* Custom styling for the left and right arrows */
+			.reveal .navigate-left, 
+			.reveal .navigate-right,
+			.reveal .navigate-up,
+			.reveal .navigate-down {
+			    width: 50px;  /* Set custom size */
+			    height: 50px;  /* Set custom size */
+			    background-color: rgba(0, 0, 0, 0.5);  /* Add background for better visibility */
+			    color: white;  /* Change arrow color */
+			    border-radius: 50%;  /* Make arrows circular */
+			    border: 2px solid white;  /* Add border for more definition */
+			}
+
+			/* Optional: Hover effect */
+			.reveal .navigate-left:hover, 
+			.reveal .navigate-right:hover,
+			.reveal .navigate-up:hover,
+			.reveal .navigate-down:hover {
+			    background-color: rgba(255, 255, 255, 0.8);  /* Lighter background on hover */
+			    color: black;  /* Invert color on hover */
+			}
+		</style>
+
+		<style>
+    		/* Rotate the paragraph 90 degrees clockwise */
+    		.rotate-text {
+    		  transform: rotate(270deg);
+    		  transform-origin: left top; /* Adjust as needed */
+    		  display: inline-block; /* Necessary for the rotation to work correctly */
+    		}
+  		</style>
+
+		<style>
+			@keyframes talkWiggle {
+				0%   { transform: translateX(-6px) rotate(-1.2deg); }
+				50%  { transform: translateX( 6px) rotate( 1.2deg); }
+				100% { transform: translateX(-6px) rotate(-1.2deg); }
+			}
+			/* Default paused */
+			.talking { animation: talkWiggle 1.2s ease-in-out infinite; animation-play-state: paused; }
+			/* When the fragment becomes visible, run it */
+			.fragment.visible.talking { animation-play-state: running; }
+
+			@media (prefers-reduced-motion: reduce) {
+				.talking { animation: none !important; }
+			}
+		</style>
+
+		<style>
+			/* Caret + type-on effect (monospace makes 1ch ≈ 1 character) */
+			.typewriter {
+				display: inline-block;                 /* ← critical */
+				font-family: ui-monospace, monospace;
+				white-space: nowrap;
+				overflow: hidden;
+				width: var(--chars,40)ch;                              /* start hidden */
+				animation: typing var(--dur,3s) steps(var(--chars,40)) forwards, caret .9s steps(1,end) infinite;
+			}
+			@keyframes typing { from { clip-path: inset(0 100% 0 0); }
+                      to   { clip-path: inset(0 0 0 0); } }
+			@keyframes caret  { 50% { border-color: transparent; } }
+
+			/* If you want it to start on click (as a fragment): pause until visible */
+			.fragment .typewriter { animation-play-state: paused; }
+			.fragment.visible .typewriter { animation-play-state: running; }
+
+			@media (prefers-reduced-motion: reduce) {
+				.typewriter { animation: none; width: auto; border-right: 0; }
+			}
+		</style>
+
+		<style>
+			.bubble {
+				position: relative;
+				background: #b1b1b1;
+				padding: 1em 1.5em;
+				border-radius: 1em;
+				max-width: 400px;
+				margin: 2em;
+				box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+			}
+			.bubble::after {
+				content: "";
+				position: absolute;
+				bottom: -20px;  /* adjust tail position */
+				left: 40px;     /* move horizontally */
+				border-width: 20px 20px 0;
+				border-style: solid;
+				border-color: #b1b1b1 transparent transparent transparent;
+			}
+		</style>
+
+		<style>
+			.memory-overlay {
+				position: absolute;
+				top: 0;
+				left: -50vw;      /* push 5% outside the slide */
+				width: 140vw;    /* 100% + left overshoot */
+				height: 100%;
+				background: rgba(200,200,200,0.4);  /* greyish tint */
+				z-index: 1000;          /* higher than slide content */
+				pointer-events: none;   /* so you can still click/advance */
+			}
+		</style>
+
+
+		<style>
+			/* Custom zoom-out animation */
+			@keyframes zoomOutForward {
+			from { transform: scale(1); opacity: 1; }
+			to   { transform: scale(0.8); opacity: 0; }
+			}
+			.reveal .slides section.zooming-out {
+			animation: zoomOutForward 0.6s ease forwards;
+			z-index: 1000; /* keep above the new slide during the shrink */
+			}
+		</style>
+
+		<style>
+			/* Slides mascot from an offscreen corner → target spot → back out */
+			@keyframes mascotSlideOneWay {
+				from { transform: translate(var(--dx, 40vw), var(--dy, 40vh)) scale(.98); opacity: 0; }
+				to   { transform: translate(0, 0) scale(1);                               opacity: 1; }
+			}
+			.mascot-inout {
+				animation: mascotSlideOneWay var(--dur, 1.25s) ease-in-out 2 alternate both;
+				/* 2 iterations + alternate = in, then back out */
+			}
+
+			/* Start the animation only when revealed as a fragment */
+			.fragment .mascot-inout { animation-play-state: paused; }
+			.fragment.visible .mascot-inout { animation-play-state: running; }
+
+			/* Be nice to folks who prefer reduced motion */
+			@media (prefers-reduced-motion: reduce) {
+				.mascot-inout { animation: none !important; opacity: 1 !important; }
+			}
+
+			/* Helper for easy absolute positioning inside a slide */
+			.abs { position: absolute; }
+		</style>
+
+		<style>
+			/* Anchor for easy absolute positioning */
+			.portrait-wrap { position: relative; width: 800px; }
+
+			.portrait { display: block; width:900%; }
+
+			/* White rectangle that hides the mouth area on the base image */
+			.mouth-mask {
+				position: absolute;
+				left: var(--mask-left, 44%);   /* tweak these 4 to fit your image */
+				top:  var(--mask-top,  64%);
+				width: var(--mask-width, 24%);
+				height: var(--mask-height, 10%);
+				background: #fff;              /* the “cut-out” */
+				z-index: 1;
+				border-radius: 2px;            /* optional: soften edges */
+			}
+
+			/* Mouth overlay (a PNG of just the mouth with transparent background) */
+			.mouth-overlay {
+				position: absolute;
+				left: var(--mouth-left, 34%);
+				top:  var(--mouth-top,  64%);
+				width: var(--mouth-width, 24%);
+				z-index: 2;
+				transform-origin: 50% 0%;
+			}
+
+			/* Simple up/down “talking” motion */
+			@keyframes talkUpDown {
+				0%, 100% { transform: translateY(0) scaleY(1); }
+				50%      { transform: translateY(10px) scaleY(1.05); }
+			}
+			.mouthtalking { animation: talkUpDown var(--dur, 0.9s) ease-in-out infinite; }
+
+			/* Start only when revealed as a fragment (optional) */
+			.fragment .mouthtalking { animation-play-state: paused; }
+			.fragment.visible .mouthtalking { animation-play-state: running; }
+
+			/* Pause when slide not active + reduced motion */
+			.reveal .slides section:not(.present) .mouthtalking { animation-play-state: paused !important; }
+			@media (prefers-reduced-motion: reduce) { .mouthtalking { animation: none !important; } }
+		</style>
+		
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<!--  INTRO  -->
+				<section class="no-footer" data-background-color="white">
+					<div style="border-radius: 15px 80px; background: #f9f1ee; text-align: center">
+						<p style="font-size: 59px;">Maximizing observational diversity and <br> scientific return for Ariel target list</p>
+						
+					</div>
+					<div style="padding: 10px"></div>
+					<div style="border-radius: 15px; background: #efe0dd; text-align: center">
+						<p><b>Emilie Panek</b></p>
+						<p style="font-size: 22px;">02/10/2025</p>
+						<p style="font-size:50%;">working with <b>Alexander Roman, Katia Matcheva and Konstantin Matchev</b>
+						</p>
+					</div>
+					<div style="position:relative; top:-25px;left: 30px;">
+						<img style="position:relative; left:-30px;top: 30px;"  height="150px" src="images/Page8_Capstone-A_Logos-791x1024-1.png">
+					</div>
+					<aside class="notes">
+						Good afternoon everyone. Thank you all for being here today. 
+					</aside>
+				</section>
+
+				<!--  FLASHBACK  -->
+				<section data-transition ='zoom' data-transition-speed="slow" data-background-color="white"class="flashback">
+
+					<p style="position: relative;top: 400px;">Consortium Leiden, April 2025</p>
+					<div style="position:relative; top:-25px;left: 30px;">
+						<img style="position:relative; left:-300px;top: 400px;"  height="500px" src="images/screen1.png">
+					</div>
+					<div class="r-stack" style="position:relative; top:-100px; left:30px;">
+						<img
+							class="talking fragment"
+							data-fragment-index="1"
+							style="position:relative; left:200px; top:30px; height:500px;"
+							src="images/NCowan_SRC_Feat-removebg-preview.png"
+							alt="Speaker"
+						>
+					</div>
+
+					<div class="bubble fragment" style="position: relative;top: -750px;left: 700px; height: 100px;" data-fragment-index="1">
+						
+						
+					</div>
+
+					<p class="fragment"data-fragment-index="1">
+						<span class="typewriter" style="--chars: 56; --dur: 1s;position:relative; left:520px; top:-1000px; height:500px;color:black;font-size: 35px;">
+							Need enough variance 
+						</span>
+					</p>
+
+					<p class="fragment"data-fragment-index="2">
+						<span class="typewriter" style="--chars: 26; --dur: 1s; position:relative; left:510px; top:-1480px; height:500px;color:black;font-size: 35px;">
+							and enough planets!
+						</span>
+					</p>
+					
+
+					<div class="memory-overlay"></div>
+
+				</section>
+
+				<!--  TEST  -->
+				<section data-auto-animate="" data-background-color="white"class="flashback" data-visibility="hidden">
+					<p style="position: relative;top: 400px;">Consortium Leiden, April 2025</p>
+
+					<div style="position:relative; top:-25px;left: 30px;">
+						<img style="position:relative; left:-300px;top: 400px;"  height="500px" src="images/screen1.png">
+					</div>
+
+					<!-- Position this whole block wherever you want on the slide -->
+					<div class="portrait-wrap" style="position: relative;top: -70px;left: 350px;">
+						<!-- 1) Base face -->
+						<img class="portrait" src="images/NCowan_SRC_Feat-removebg-preview.png" style="position: relative; width: 700px;" alt="Speaker">
+						<!-- 2) White rectangle that covers the mouth on the base image -->
+						<div class="mouth-mask"
+							style="
+							--mask-left: 42%;
+							--mask-top:  32%;
+							--mask-width: 5%;
+							--mask-height: 1%;
+							"></div>
+						<!-- 3) Mouth-only PNG overlay (moves) -->
+						<img class="mouth-overlay mouthtalking fragment"
+							src="images/mouth.png"  
+							alt=""
+							style="
+							--mouth-left: 42%;
+							--mouth-top:  27.5%;
+							--mouth-width: 5%;
+							--mouth-height: 8%;
+							--dur: 0.8s;      /* mouthtalking speed */
+							"
+							data-fragment-index="1">
+					</div>
+
+					<div class="bubble fragment" style="position: relative;top: -750px;left: 700px; height: 100px;" data-fragment-index="2">
+					</div>
+
+					<p class="fragment"data-fragment-index="2">
+						<span class="typewriter" style="--chars: 56; --dur: 1s;position:relative; left:520px; top:-1000px; height:500px;color:black;font-size: 35px;">
+							Need enough variance 
+						</span>
+					</p>
+
+					<p class="fragment"data-fragment-index="3">
+						<span class="typewriter" style="--chars: 26; --dur: 1s; position:relative; left:510px; top:-1480px; height:500px;color:black;font-size: 35px;">
+							and enough planets!
+						</span>
+					</p>
+
+					<div class="memory-overlay"></div>
+
+				</section>
+				<!--  FIN TEST  -->
+
+				<!--  FLASHBACK LA SUITE  -->
+				<section data-transition ='zoom' data-transition-speed="slow" data-background-color="white"class="flashback">
+
+					<p style="position: relative;top: 400px;">Consortium Leiden, April 2025</p>
+					<div style="position:relative; top:-25px;left: 30px;">
+						<img style="position:relative; left:-300px;top: 400px;"  height="500px" src="images/screen2.png">
+					</div>
+					<div class="r-stack" style="position:relative; top:-100px; left:30px;">
+						<img
+							class="talking fragment"
+							data-fragment-index="1"
+							style="position:relative; left:200px; top:30px; height:500px;"
+							src="images/NCowan_SRC_Feat-removebg-preview.png"
+							alt="Speaker"
+						>
+					</div>
+
+					<div class="bubble fragment" style="position: relative;top: -750px;left: 700px; height: 100px;" data-fragment-index="1">
+					</div>
+
+					<p class="fragment"data-fragment-index="1">
+						<span class="typewriter" style="--chars: 56; --dur: 1s;position:relative; left:520px; top:-1000px; height:500px;color:black;font-size: 25px;">
+							Imposing diversity results in 
+						</span>
+					</p>
+
+					<p class="fragment"data-fragment-index="2">
+						<span class="typewriter" style="--chars: 56; --dur: 1s;position:relative; left:520px; top:-1480px; height:500px;color:black;font-size: 23px;">
+							less leverage in both dimensions!
+						</span>
+					</p>
+
+					<div class="memory-overlay"></div>
+
+				</section>
+
+
+				<section data-transition ='zoom' data-transition-speed="slow" data-background-color="white"class="flashback">
+
+					<p style="position: relative;top: 400px;">Consortium Leiden, April 2025</p>
+					<div style="position:relative; top:-25px;left: 30px;">
+						<img style="position:relative; left:-300px;top: 400px;"  height="500px" src="images/bins_nic.png">
+					</div>
+					<div class="r-stack" style="position:relative; top:-100px; left:30px;">
+						<img
+							class="talking fragment"
+							data-fragment-index="1"
+							style="position:relative; left:200px; top:30px; height:500px;"
+							src="images/NCowan_SRC_Feat-removebg-preview.png"
+							alt="Speaker"
+						>
+					</div>
+
+					<div class="bubble fragment" style="position: relative;top: -750px;left: 700px; height: 100px;" data-fragment-index="1">
+					</div>
+
+					<p class="fragment"data-fragment-index="1">
+						<span class="typewriter" style="--chars: 56; --dur: 1s;position:relative; left:520px; top:-980px; height:500px;color:black;font-size: 23px;">
+							Let's make some bins to increase
+						</span>
+					</p>
+
+					<p class="fragment"data-fragment-index="2">
+						<span class="typewriter" style="--chars: 56; --dur: 1s;position:relative; left:520px; top:-1460px; height:480px;color:black;font-size: 25px;">
+							diversity accross parameters!
+						</span>
+					</p>
+
+					<div class="memory-overlay"></div>
+
+				</section>
+
+				<section data-transition="zoom" data-background-color="white"class="flashback">
+
+					<p style="position: relative;top: 400px;">Consortium Leiden, April 2025</p>
+					<div style="position:relative; top:-25px;left: 30px;">
+
+						<img style="position:relative; left:-500px;top: 400px;"  height="280px" src="images/1param_nb_obs.png">
+						<img class="r-stack" style="position:relative; left:-190px;top: 350px;"  height="295px" src="images/1param_leverage.png">
+						<img class="r-stack" style="position:relative; left:230px;top: -250px;"  height="280px" src="images/2params_nb_obs.png">
+						<img class="r-stack" style="position:relative; left:230px;top: -265px;"  height="295px" src="images/2params_leverage.png">
+					</div>
+					<div class="r-stack" style="position:relative; top:-100px; left:30px;">
+						<img
+							class="talking fragment"
+							data-fragment-index="1"
+							style="position:relative; left:200px; top:-700px; height:500px;"
+							src="images/NCowan_SRC_Feat-removebg-preview.png"
+							alt="Speaker"
+						>
+					</div>
+
+					<div class="bubble fragment" style="position: relative;top: -1500px;left: 700px; height: 100px;" data-fragment-index="1">
+						
+						
+					</div>
+
+					<p class="fragment"data-fragment-index="1">
+						<span class="typewriter" style="--chars: 56; --dur: 1s;position:relative; left:450px; top:-1750px; height:500px;color:black;font-size: 25px;">
+							Let's have a look at 
+						</span>
+					</p>
+
+					<p class="fragment"data-fragment-index="2">
+						<span class="typewriter" style="--chars: 56; --dur: 1s;position:relative; left:520px; top:-2240px; height:500px;color:black;font-size: 23px;">
+							cumulative number of observations
+						</span>
+					</p>
+					<p class="fragment"data-fragment-index="3">
+						<span class="typewriter" style="--chars: 56; --dur: 1s;position:relative; left:480px; top:-2730px; height:500px;color:black;font-size: 23px;">
+							and cumulative leverage.
+						</span>
+					</p>
+
+					<div class="memory-overlay"></div>
+
+				</section>
+
+				<!--  NORMAL TALK  -->
+				<!--  GREEDY  -->
+
+				<section data-background-color="white" data-auto-animate="">
+					<h2 style="position: relative;top: 120px;">
+						Back to present day
+					</h2>
+
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -180px;left: 300px;"  height="500px" src="images/temp_time_greedy.png">
+					</div>	
+
+					<ul style="font-size: 40px;position: relative;top: -300px;right: 400px;">
+						<li>time greedy </li>
+					</ul>
+
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<h2 style="position: relative;top: 120px;">
+						Back to present day
+					</h2>
+
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -180px;left: 300px;"  height="500px" src="images/temp_time_greedy.png">
+					</div>	
+
+					<ul style="font-size: 40px;position: relative;top: -300px;right: 400px;">
+						<li>time greedy </li>
+					</ul>
+
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<h2 style="position: relative;top: 120px;">
+						Back to present day
+					</h2>
+
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -180px;left: 300px;"  height="500px" src="images/temp_variance_greedy.png">
+					</div>	
+
+					<ul style="font-size: 40px;position: relative;top: -300px;right: 367px;">
+						<li>time greedy</li>
+						<li>variance greedy</li>
+					</ul>
+
+
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<h2 style="position: relative;top: 120px;">
+						Back to present day
+					</h2>
+
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -180px;left: 300px;"  height="500px" src="images/temp_leverage_greedy.png">
+					</div>	
+
+					<ul style="font-size: 40px;position: relative;top: -350px;right: 386px;">
+						<li>time greedy</li>
+						<li>variance greedy</li>
+						<li>leverage greedy</li>
+					</ul>
+
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<h2 style="position: relative;top: 120px;">
+						Back to present day
+					</h2>
+
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -180px;left: 300px;"  height="500px" src="images/temp_leverage_greedy.png">
+					</div>	
+
+					<ul style="font-size: 40px;position: relative;top: -350px;right: 386px;">
+						<li>time greedy</li>
+						<li>variance greedy</li>
+						<li>leverage greedy</li>
+						<li>Nic's regular binning</li>
+					</ul>
+
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<h2 style="position: relative;top: 120px;">
+						Back to present day
+					</h2>
+
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -180px;left: 300px;"  height="500px" src="images/temp_leverage_greedy.png">
+					</div>	
+
+					<ul style="font-size: 40px;position: relative;top: -350px;right: 386px;">
+						<li>time greedy</li>
+						<li>variance greedy</li>
+						<li>leverage greedy</li>
+						<li>Nic's regular binning</li>
+						<li>Nic's quantile binning</li>
+					</ul>
+
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<h2 style="position: relative;top: 120px;">
+						Back to present day
+					</h2>
+
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -180px;left: 300px;"  height="500px" src="images/temp_leverage_greedy.png">
+					</div>	
+
+					<ul style="font-size: 40px;position: relative;top: -350px;right: 386px;">
+						<li>time greedy</li>
+						<li>variance greedy</li>
+						<li>leverage greedy</li>
+						<li>Nic's regular binning</li>
+						<li>Nic's quantile binning</li>
+						<li>K-means clustering</li>
+					</ul>
+
+				</section>
+
+				<section data-background-color="white" data-auto-animate="">
+					<h2 style="position: relative;top: 120px;">
+						Back to present day
+					</h2>
+
+					<div style="position:relative; top:250px;left: 30px;">
+						<img style="position:relative; left:-30px;top: -180px;left: 300px;"  height="500px" src="images/temp_leverage_greedy.png">
+					</div>	
+
+					<ul style="font-size: 40px;position: relative;top: -350px;right: 386px;">
+						<li>time greedy</li>
+						<li>variance greedy</li>
+						<li>leverage greedy</li>
+						<li>Nic's regular binning</li>
+						<li>Nic's quantile binning</li>
+						<li>K-means clustering</li>
+						<li>Simulated annealing</li>
+					</ul>
+
+				</section>
+
+				<section data-background-color="white">
+					<h2>
+						Comparison
+					</h2>
+
+				</section>
+
+				<!--  2 DIMENSIONS  -->
+
+				<section data-background-color="white">
+					<h2>
+						2 parameters
+					</h2>
+
+					<ul style="font-size: 40px;position: relative;top: -300px;right: 400px;">
+						<li>time greedy </li>
+					</ul>
+
+					<iframe
+						src="images/all_vs_selected_time.html"
+						width="100%"
+						style="height:70vh;border:0;"
+						loading="lazy"
+					></iframe>
+
+				</section>
+
+				<section data-background-color="white">
+					<h2>
+						2 parameters
+					</h2>
+
+					<ul style="font-size: 40px;position: relative;top: -300px;right: 367px;">
+						<li>variance greedy</li>
+					</ul>
+
+					<iframe
+						src="images/all_vs_selected_variance.html"
+						width="100%"
+						style="height:70vh;border:0;"
+						loading="lazy"
+					></iframe>
+
+				</section>
+
+				<section data-background-color="white">
+					<h2>
+						2 parameters
+					</h2>
+
+					<ul style="font-size: 40px;position: relative;top: -300px;right: 400px;">
+						<li>leverage greedy </li>
+					</ul>
+
+					<iframe
+						src="images/all_vs_selected_leverage.html"
+						width="100%"
+						style="height:70vh;border:0;"
+						loading="lazy"
+					></iframe>
+
+				</section>
+
+				<section data-background-color="white">
+					<h2>
+						Back to Nic's cumulative plots
+					</h2>
+
+				</section>
+
+				<!--  CONCLUSIONS  -->
+				<section data-background-color="white">
+					<h2>
+						Conclusions
+					</h2>
+
+				</section>
+
+				<!--  THANKS  -->
+				<section data-background-color="white" >
+					<h2 style="position: relative;top: 100px;">Thanks!</h2>
+
+					<!-- Position this wrapper where the mascot should "end up" (the midway point). -->
+					<div class="abs" style="left: 70%; top: 90%; transform: translate(-10%,-10%);">
+						<!-- The image starts offscreen (from a corner) and slides to this spot, then back. -->
+						<img
+						class="mascot-inout fragment"
+						src="images/Roll_tide_evryone_-removebg-preview.png"
+						alt="Mascot"
+						style="
+							width: 600px;--dx: 40vw; --dy: 40vh; --dur: 4.25s;
+						"
+						>
+					</div>
+				</section>
+
+
+
+
+				
+
+			</div>
+			<footer class="slide-footer">
+				<p> Emilie Panek &nbsp;&nbsp; | &nbsp;&nbsp; epanek1@ua.edu  &nbsp;&nbsp; | &nbsp;&nbsp; 02/10/2025</p>
+			  </footer>
+		</div>
+
+		<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+
+
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				slideNumber: false,
+				controls: false,
+				// Fix dimensions
+				width: 1000,       // your screen width
+				height: 1500,      // your screen height
+				margin: 0.05,      // optional: 5% margin around content
+				minScale: 1.0,     // don't shrink below original size
+				maxScale: 1.0,     // don't grow beyond original size
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ]
+			});
+
+			// Footer hide/show logic
+  			Reveal.on('slidechanged', function(event) {
+    			var footer = document.querySelector('.footer');
+    
+    			if (event.currentSlide.classList.contains('no-footer')) {
+      			footer.style.display = 'none';
+				} else {
+      			footer.style.display = 'block';
+    			}
+  			});
+
+		</script>
+	</body>
+</html>
